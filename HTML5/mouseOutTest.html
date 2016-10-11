@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script>
+        document.onmouseover = function() {
+            console.log("moused over the doc!");
+            window.onbeforeunload = '';
+        }
+        
+        document.onmouseout = function() {
+            console.log("moused out of the doc!");
+            window.onbeforeunload = function() {
+                // This message only displays on Chrome.
+                // Firefox just shows a generic message
+                return "Your work will be lost.";
+            };
+        }
+    </script>
+</head>
+<body>
+    <p>Try to refresh me from the html bar vs F5.</p>
+</body>
+</html>
