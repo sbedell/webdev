@@ -1,1 +1,5 @@
+# Node Modules
 angular-quickstart-ts/node_modules
+
+# Logs
+*.log
