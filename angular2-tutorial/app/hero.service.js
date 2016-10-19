@@ -13,14 +13,17 @@ var mock_heroes_1 = require('./mock-heroes');
 var HeroService = (function () {
     function HeroService() {
     }
+    HeroService.prototype.getHero = function (id) {
+        return this.getHeroes().then(function (heroes) { return heroes.find(function (hero) { return hero.id === id; }); });
+    };
     HeroService.prototype.getHeroes = function () {
         return Promise.resolve(mock_heroes_1.HEROES);
     };
     HeroService.prototype.getHeroesSlowly = function () {
         var _this = this;
         return new Promise(function (resolve) {
-            return setTimeout(resolve, 2000);
-        }) // delay 2 seconds
+            return setTimeout(resolve, 1000);
+        }) // delay 1 second
             .then(function () { return _this.getHeroes(); });
     };
     HeroService = __decorate([
