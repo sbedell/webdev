@@ -9,36 +9,34 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var hero_service_1 = require('./hero.service');
 var router_1 = require('@angular/router');
-var HeroesComponent = (function () {
-    function HeroesComponent(router, heroService) {
+var hero_service_1 = require('../hero.service');
+var DashboardComponent = (function () {
+    // Empty constructor, to pass in router and heroService
+    function DashboardComponent(router, heroService) {
         this.router = router;
         this.heroService = heroService;
+        this.heroes = [];
     }
-    HeroesComponent.prototype.getHeroes = function () {
+    DashboardComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.heroService.getHeroes().then(function (heroes) { return _this.heroes = heroes; });
+        this.heroService.getHeroes()
+            .then(function (heroes) { return _this.heroes = heroes.slice(1, 5); });
     };
-    HeroesComponent.prototype.ngOnInit = function () {
-        this.getHeroes();
+    DashboardComponent.prototype.gotoDetail = function (hero) {
+        var link = ['/detail', hero.id];
+        this.router.navigate(link);
     };
-    HeroesComponent.prototype.onSelect = function (hero) {
-        this.selectedHero = hero;
-    };
-    HeroesComponent.prototype.gotoDetail = function () {
-        this.router.navigate(['/detail', this.selectedHero.id]);
-    };
-    HeroesComponent = __decorate([
+    DashboardComponent = __decorate([
         core_1.Component({
-            selector: 'my-heroes',
-            templateUrl: '/app/heroes.component.html',
-            styleUrls: ['./app/heroes.component.css'],
-            providers: [hero_service_1.HeroService]
+            moduleId: module.id,
+            selector: 'my-dashboard',
+            templateUrl: 'dashboard.component.html',
+            styleUrls: ['dashboard.component.css']
         }), 
         __metadata('design:paramtypes', [router_1.Router, hero_service_1.HeroService])
-    ], HeroesComponent);
-    return HeroesComponent;
+    ], DashboardComponent);
+    return DashboardComponent;
 }());
-exports.HeroesComponent = HeroesComponent;
-//# sourceMappingURL=heroes.component.js.map
+exports.DashboardComponent = DashboardComponent;
+//# sourceMappingURL=dashboard.component.js.map
