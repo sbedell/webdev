@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Checkbox Test</title>
+  </head>
+
+  <body>
+    <!-- Taken from https://developer.salesforce.com/docs/atlas.en-us.pages.meta/pages/pages_access.htm -->
+    <!-- This outputPanel calls the function, passing in the
+             checkbox itself, and the DOM ID of the target component. -->
+    <div>
+      <label>Click this box to change text font:
+        <input id="checkbox" type="checkbox" onclick="changeFont(this, 'thePanel')" />
+      </label>
+    </div>
+    
+    <!-- This outputPanel is the target, and contains 
+         text that will be changed. -->
+    <div id="thePanel">
+      Change my font weight!
+    </div>
+    
+    <script>
+        function changeFont(input, textid) {
+          // console.log("Checked? " + input.checked);
+          
+          if (input.checked) {
+            document.getElementById(textid).style.fontWeight = "bold";
+          } else {
+            document.getElementById(textid).style.fontWeight = "normal";
+          }
+        }
+    </script>
+  </body>
+</html>
+
+
