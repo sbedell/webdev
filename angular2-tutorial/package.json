@@ -1,5 +1,5 @@
 {
-  "name": "angular-quickstart-ts",
+  "name": "angular2-tutorial",
   "version": "1.0.0",
   "scripts": {
     "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",

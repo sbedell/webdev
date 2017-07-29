@@ -3,3 +3,6 @@
 
 # Logs
 *.log
+
+# Typings
+angular2-tutorial/typings/**
