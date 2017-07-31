@@ -5,12 +5,6 @@
  * for the original skeleton of this code
  */
 
-const numbers = '0123456789';
-const specials = "!@#$%*?_-=.:|";
-const lowercase = "abcdefghijklmnopqrstuvwxyz";
-const uppercase = lowercase.toUpperCase();
-const all = numbers + specials + lowercase + uppercase;
-
 // using default parameters for max = min
 String.prototype.pick = function(min, max = min) {
     let n = min + Math.floor(Math.random() * (max - min));
@@ -29,18 +23,27 @@ String.prototype.pick = function(min, max = min) {
  */
 String.prototype.shuffle = function() {
     let splitString = this.split('');
-    let tmp, current, top = splitString.length;
+    let top = splitString.length;
+    let tmp, current;
 
-    if (top) while (--top) {
-        current = Math.floor(Math.random() * (top + 1));
-        tmp = splitString[current];
-        splitString[current] = splitString[top];
-        splitString[top] = tmp;
+    if (top) {
+        while (--top) {
+            current = Math.floor(Math.random() * (top + 1));
+            tmp = splitString[current];
+            splitString[current] = splitString[top];
+            splitString[top] = tmp;
+        }
     }
 
     return splitString.join('');
 };
 
-// "Main Program" 
+// "Main Program"
+const numbers = '0123456789';
+const specials = "!@#$%*?_-=.:|";
+const lowercase = "abcdefghijklmnopqrstuvwxyz";
+const uppercase = lowercase.toUpperCase();
+const all = numbers + specials + lowercase + uppercase;
+
 let password = (numbers.pick(1) + specials.pick(1) + lowercase.pick(1) + uppercase.pick(1) + all.pick(4)).shuffle();
 console.log(password);
