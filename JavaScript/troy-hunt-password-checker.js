@@ -49,7 +49,7 @@ function hasUserNameBeenPwned(username) {
 }
 
 function hasPasswordBeenPwned(yourPassword) {
-  const sha1hashedPassword = crypto.createHash('sha1');
+  let sha1hashedPassword = crypto.createHash('sha1');
   sha1hashedPassword.update(yourPassword.trim());
 
   const options = {
