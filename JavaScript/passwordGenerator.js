@@ -40,10 +40,11 @@ String.prototype.shuffle = function() {
 
 // "Main Program"
 const numbers = '0123456789';
-const specials = "!@#$%*?_-=.:|";
+const trimmedListOfSpecials = "!@#$%*?_-=.:|";
+const specialChars = '~!@#$%^&*()_+=-"|\/<>.,?';
 const lowercase = "abcdefghijklmnopqrstuvwxyz";
 const uppercase = lowercase.toUpperCase();
-const all = numbers + specials + lowercase + uppercase;
+const all = numbers + specialChars + lowercase + uppercase;
 
-let password = (numbers.pick(1) + specials.pick(1) + lowercase.pick(1) + uppercase.pick(1) + all.pick(4)).shuffle();
+let password = (numbers.pick(1) + specialChars.pick(1) + lowercase.pick(1) + uppercase.pick(1) + all.pick(8)).shuffle();
 console.log(password);

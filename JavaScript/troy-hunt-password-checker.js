@@ -62,9 +62,7 @@ function hasPasswordBeenPwned(yourPassword) {
     }
   };
   
-  //console.log("Calling haveibeenpwned.com...\n");
-  
-  const req = https.request(options, function(response) {
+  let req = https.request(options, function(response) {
     if (response.statusCode == 200) {
       console.log("Oh no — pwned! This password has previously appeared in a data breach and should never be used. If you've ever used it anywhere before, change it immediately!\n");
     } else if (response.statusCode == 404) {
@@ -82,4 +80,10 @@ function hasPasswordBeenPwned(yourPassword) {
   });
 
   req.end();
+}
+
+// startin "main":
+if (process.argv[2]) {
+  let yourPassword = process.argv[2].trim();
+  hasPasswordBeenPwned(yourPassword);
 }
