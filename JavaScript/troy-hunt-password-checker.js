@@ -14,8 +14,6 @@ const https = require('https');
 const crypto = require('crypto');
 
 function hasUserNameBeenPwned(username) {
-  //console.log("Calling haveibeenpwned.com...\n");
-
   const options = {
     hostname: 'haveibeenpwned.com',
     port: 443,
@@ -82,7 +80,7 @@ function hasPasswordBeenPwned(yourPassword) {
   req.end();
 }
 
-// startin "main":
+// starting "main":
 if (process.argv[2]) {
   let yourPassword = process.argv[2].trim();
   hasPasswordBeenPwned(yourPassword);
