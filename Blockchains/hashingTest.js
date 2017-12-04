@@ -11,7 +11,7 @@ for (let y = 0; y < 1000; y++) {
     let digest = hash.digest('hex');
     // console.log(digest);
 
-    if (digest[digest.length - 1] === "0") {
+    if (digest.charAt(digest.length - 1) === "0") {
         console.log(`The SHA-256 hash of ${x} * ${y} = ${x*y} is ${digest}`);
         console.log(`The solution is y = ${y}`);
 
