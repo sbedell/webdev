@@ -8,6 +8,10 @@ const bodyParser = require('body-parser');
 const uuidv4 = require('uuid/v4');
 const request = require('request');
 
+
+/** Blockchain class
+ * Constructor - no parameters needed
+ */
 class Blockchain {
     constructor() {
         this.chain = [];
@@ -15,7 +19,7 @@ class Blockchain {
         this.nodes = new Set();
 
         // create the genesis block
-        this.generateNewBlock(100, 1);
+        this.generateNewBlock(100, "1");
     }
     
     /** Create a new block in the blockchain
@@ -59,17 +63,16 @@ class Blockchain {
         return lastBlock.index + 1;
     }
 
-    // TODO - not 100% sure if this is working right
     /** Add/register a new node to the list of nodes
      * 
      * @param {String} address  - Address of the node, eg 'http://localhost:5000'
      * @returns Nothing
      */
     registerNode(address) {
-        console.log(address);
+        //console.log("address: " + address);
         let parsedUrl = URL.parse(address);
-        console.log(parsedUrl);
-        this.nodes.add(parsedUrl.origin);
+        //console.log("parsedUrl.href = " + parsedUrl.href);
+        this.nodes.add(parsedUrl.href);
     }
 
     /** Determine if a given blockchain is valid
@@ -217,6 +220,9 @@ app.use(bodyParser.json());
 var nodeUUID = uuidv4(); // generate UUID for this node
 var blockchain = new Blockchain();
 
+// Set up API endpoints
+
+// "Mine" a block
 app.get('/mine', function(req, res) {
     // We run the proof of work algorithm to get the next proof...
     let last_block = blockchain.getLastBlock();
@@ -225,18 +231,18 @@ app.get('/mine', function(req, res) {
 
     // We must receive a reward for finding the proof.
     // The sender is "0" to signify that this node has mined a new coin.
-    blockchain.newTransaction(sender="0", recipient=nodeUUID, amount=1);
+    blockchain.newTransaction("0", nodeUUID, 1);
 
     // Forge the new Block by adding it to the chain
     let previousHash = Blockchain.hashBlock(last_block);
     let block = blockchain.generateNewBlock(proof, previousHash);
 
     let response = {
-        'message': "New Block Forged",
-        'index': block.index,
-        'transactions': block.transactions,
-        'proof': block.proof,
-        'previous_hash': block.previous_hash,
+        message: "New Block Forged",
+        index: block.index,
+        transactions: block.transactions,
+        proof: block.proof,
+        previous_hash: block.previous_hash,
     };
 
     return res.status(200).send(JSON.stringify(response));
@@ -244,8 +250,8 @@ app.get('/mine', function(req, res) {
 
 app.get('/chain', function(req, res) {
     let response = {
-        'chain': blockchain.chain,
-        'length': blockchain.chain.length,
+        chain: blockchain.chain,
+        length: blockchain.chain.length,
     };
 
     res.status(200).send(JSON.stringify(response));
@@ -272,8 +278,8 @@ app.get('/nodes/resolve', function(req, res) {
     return res.status(200).send(response);
 });
     
-/**
- * Example send to server
+/** Create/register a new transaction
+ * Example POST data to send:
  * {
       "sender": "my address",
       "recipient": "someone else's address",
@@ -281,44 +287,45 @@ app.get('/nodes/resolve', function(req, res) {
     }
  */
 app.post('/transaction/new', function(req, res) {
-    // console.log(req.body);
-    // console.log(req.body.sender);
-    // console.log(req.body.recipient);
-    // console.log(req.body.amount);
-
     // Check that the required fields are in the POST'ed data 
     if (!req.body.sender || !req.body.recipient || !req.body.amount) {
         return res.status(404).send("Error, missing POST request value(s)");
     }
 
-    // create new transaction:
     let index = blockchain.newTransaction(req.body.sender, req.body.recipient, req.body.amount);
     let response = {
-        'message': `Transaction will be added to Block ${index}`
+        message: `Transaction will be added to Block ${index}`
     };
 
     return res.status(201).send(JSON.stringify(response));
 });
 
-// Register a new node, TODO - not sure if this is working yet.
+/** Register a new node
+ * Example POST data to send:
+ * {
+ *  "nodes": ["http://localhost:5001", "http://localhost:5002"]
+ * }
+ */ 
 app.post('/nodes/register', function(req, res) {
     if (!req.body.nodes) {
         return res.status(400).send("Error: Please supply a valid list of nodes");
-    } 
+    }
 
-    let nodes = Array(req.body.nodes);
-    nodes.forEach(function(node) {
+    let nodesList = req.body.nodes;
+    nodesList.forEach(function(node) {
+        // console.log("node = " + node);
         blockchain.registerNode(node);
     });
 
     let response = {
         message: "New nodes have been added",
-        total_nodes: blockchain.nodes
+        total_nodes: Array.from(blockchain.nodes)
     };
 
-    return res.sendStatus(201);
+    return res.status(201).send(response);
 });
 
+// Set the port number and start the server:
 let port;
 if (process.argv[2] && process.argv[2] > 0 && process.argv[2] < 66666) {
     port = process.argv[2];
