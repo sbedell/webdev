@@ -1,7 +1,7 @@
 {
   "name": "blockchain-demo",
   "version": "0.0.1",
-  "description": "Developing a test demo blockchain app in node js",
+  "description": "Developing a test demo blockchain app in node js. Taken mostly from https://hackernoon.com/learn-blockchains-by-building-one-117428612f46",
   "main": "blockchain.js",
   "keywords": [
     "nodejs",
@@ -13,6 +13,7 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
+    "request": "^2.83.0",
     "uuid": "^3.1.0"
   }
 }

@@ -1,12 +1,18 @@
+// Standard node imports
 const crypto = require('crypto');
+const URL = require('url');
+
+// npm component imports:
 const express = require('express');
 const bodyParser = require('body-parser');
 const uuidv4 = require('uuid/v4');
+const request = require('request');
 
 class Blockchain {
     constructor() {
         this.chain = [];
         this.current_transactions = [];
+        this.nodes = new Set();
 
         // create the genesis block
         this.generateNewBlock(100, 1);
@@ -53,8 +59,93 @@ class Blockchain {
         return lastBlock.index + 1;
     }
 
-    // @property
-    // Returns the last Block in the chain
+    // TODO - not 100% sure if this is working right
+    /** Add/register a new node to the list of nodes
+     * 
+     * @param {String} address  - Address of the node, eg 'http://localhost:5000'
+     * @returns Nothing
+     */
+    registerNode(address) {
+        console.log(address);
+        let parsedUrl = URL.parse(address);
+        console.log(parsedUrl);
+        this.nodes.add(parsedUrl.origin);
+    }
+
+    /** Determine if a given blockchain is valid
+     * 
+     * @param {Array} chain - a blockchain
+     * @returns {Boolean} True if valid, false if not
+     */
+    isValidChain(chain) {
+        let lastBlock = chain[0];
+        let currentIndex = 1; 
+
+        while (currentIndex < chain.length) {
+            let block = chain[currentIndex];
+            console.log(lastBlock);
+            console.log(block);
+            console.log("\n----------------\n");
+
+            // check that the hash of the last block is correct
+            if (block.previous_hash != this.constructor.hashBlock(lastBlock)) {
+                return false;
+            }
+
+            // Check that the Proof-of-Work is correct
+            if (!this.constructor.isValidProof(lastBlock.proof, block.proof)) {
+                return false;
+            }
+
+            lastBlock = block;
+            currentIndex++;
+        }
+
+        return true;
+    }
+
+    // TODO - this isn't correct yet
+    /** Consensus Algorithm
+     * This is our consensus algorithm, it resolves conflicts
+     * by replacing our chain with the longest (valid?) one in the network.
+     * 
+     * @returns {Boolean} True if our chain was replaced, false otherwise
+     */
+    resolveConflicts() {
+        let neighbors = this.nodes;
+        let newChain = null;
+        let maxLength = this.chain.length; // we're only looking for chains longer than ours
+
+        // Grab and verify the chains from all the nodes in our network
+        neighbors.forEach(function(node) {
+            console.log(node); // undefined...so TODO - need to fix this
+            request(`http://${node}/chain`, function (error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    let serverResponse = JSON.parse(body);
+                    let chainLength = serverResponse.length;
+                    let chain = serverResponse.chain;
+
+                    // Check if the length is longer and the chain is valid
+                    if (chainLength > maxLength && this.isValidChain(chain)) {
+                        maxLength = chainLength;
+                        newChain = chain;
+                    }
+                }
+            });
+        });
+
+        // Replace our chain if we discovered a new, valid chain longer than ours
+        if (newChain) {
+            this.chain = newChain;
+            return true;
+        }
+
+        return false;
+    }
+
+    /** Get and return the last block in the chain
+     * @returns The last block in the chain
+     */
     getLastBlock() {
         return this.chain[this.chain.length - 1];
     }
@@ -159,6 +250,27 @@ app.get('/chain', function(req, res) {
 
     res.status(200).send(JSON.stringify(response));
 });
+
+// Resolve nodes, consensus algo
+// TODO - not sure if working yet...
+app.get('/nodes/resolve', function(req, res) {
+    let replaced = blockchain.resolveConflicts();
+    let response = "";
+
+    if (replaced) {
+        response = {
+            message: "Our chain was replaced",
+            new_chain: blockchain.chain
+        };
+    } else {
+        response = {
+            message: "Our chain is authoritative",
+            chain: blockchain.chain
+        };
+    }
+
+    return res.status(200).send(response);
+});
     
 /**
  * Example send to server
@@ -188,7 +300,32 @@ app.post('/transaction/new', function(req, res) {
     return res.status(201).send(JSON.stringify(response));
 });
 
-const port = 5000; // process.env.PORT || 5000;
+// Register a new node, TODO - not sure if this is working yet.
+app.post('/nodes/register', function(req, res) {
+    if (!req.body.nodes) {
+        return res.status(400).send("Error: Please supply a valid list of nodes");
+    } 
+
+    let nodes = Array(req.body.nodes);
+    nodes.forEach(function(node) {
+        blockchain.registerNode(node);
+    });
+
+    let response = {
+        message: "New nodes have been added",
+        total_nodes: blockchain.nodes
+    };
+
+    return res.sendStatus(201);
+});
+
+let port;
+if (process.argv[2] && process.argv[2] > 0 && process.argv[2] < 66666) {
+    port = process.argv[2];
+} else {
+    port = 5000;
+}
+
 app.listen(port, function() {
-  console.log('Node app is running on port', port);
+  console.log('blockchain.js is running on port', port);
 });
