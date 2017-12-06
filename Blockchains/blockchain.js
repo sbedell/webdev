@@ -69,7 +69,6 @@ class Blockchain {
      * @returns Nothing
      */
     registerNode(address) {
-        //console.log("address: " + address);
         let parsedUrl = URL.parse(address);
         //console.log("parsedUrl.href = " + parsedUrl.href);
         this.nodes.add(parsedUrl.href);
@@ -77,77 +76,88 @@ class Blockchain {
 
     /** Determine if a given blockchain is valid
      * 
-     * @param {Array} chain - a blockchain
+     * @param {Array} chain - a blockchain array
      * @returns {Boolean} True if valid, false if not
      */
     isValidChain(chain) {
-        let lastBlock = chain[0];
+        let previousBlock = chain[0];
+        // console.log("\n previousBLock = " + JSON.stringify(previousBlock));
         let currentIndex = 1; 
 
         while (currentIndex < chain.length) {
             let block = chain[currentIndex];
-            console.log(lastBlock);
-            console.log(block);
-            console.log("\n----------------\n");
+            // console.log(previousBlock);
+            // console.log(block);
+            // console.log("\n----------------------\n");
 
             // check that the hash of the last block is correct
-            if (block.previous_hash != this.constructor.hashBlock(lastBlock)) {
+            if (block.previous_hash != this.constructor.hashBlock(previousBlock)) {
+                console.log("isValisChain() - invalid hash, returning false");
                 return false;
             }
 
             // Check that the Proof-of-Work is correct
-            if (!this.constructor.isValidProof(lastBlock.proof, block.proof)) {
+            if (!this.constructor.isValidProof(previousBlock.proof, block.proof)) {
+                console.log("isValidChain() - invalid PoW, returning false");
                 return false;
             }
 
-            lastBlock = block;
+            previousBlock = block;
             currentIndex++;
         }
 
         return true;
     }
 
-    // TODO - this isn't correct yet
     /** Consensus Algorithm
      * This is our consensus algorithm, it resolves conflicts
      * by replacing our chain with the longest (valid?) one in the network.
      * 
      * @returns {Boolean} True if our chain was replaced, false otherwise
      */
-    resolveConflicts() {
+    resolveConflicts(callbackFn) {
+        let self = this;
         let neighbors = this.nodes;
         let newChain = null;
         let maxLength = this.chain.length; // we're only looking for chains longer than ours
+        let completedRequests = 0;
 
         // Grab and verify the chains from all the nodes in our network
         neighbors.forEach(function(node) {
-            console.log(node); // undefined...so TODO - need to fix this
-            request(`http://${node}/chain`, function (error, response, body) {
+            // console.log(`ResolveConflicts(): ${node}chain`);
+            request(`${node}chain`, function(error, response) {
+                completedRequests++;
+
                 if (!error && response.statusCode == 200) {
-                    let serverResponse = JSON.parse(body);
-                    let chainLength = serverResponse.length;
+                    let serverResponse = JSON.parse(response.body);
                     let chain = serverResponse.chain;
+                    let chainLength = serverResponse.chainLength; // pulling the length property 
 
                     // Check if the length is longer and the chain is valid
-                    if (chainLength > maxLength && this.isValidChain(chain)) {
+                    if (chainLength > maxLength && self.isValidChain(chain)) {
                         maxLength = chainLength;
                         newChain = chain;
+                    }
+
+                    // Call the callback function when done cycling through all the neighbor nodes
+                    if (completedRequests == neighbors.size) {
+                        // Replace our chain if we discovered a new, valid chain longer than ours
+                        if (newChain) {
+                            // console.log("resolveConflicts() returning true");
+                            self.chain = newChain;
+                            callbackFn(true);
+                        } else {
+                            // console.log("resolveConflicts() returning false");
+                            callbackFn(false);
+                        }
                     }
                 }
             });
         });
-
-        // Replace our chain if we discovered a new, valid chain longer than ours
-        if (newChain) {
-            this.chain = newChain;
-            return true;
-        }
-
-        return false;
     }
 
     /** Get and return the last block in the chain
-     * @returns The last block in the chain
+     * @returns {Object} - The last block in the chain
      */
     getLastBlock() {
         return this.chain[this.chain.length - 1];
@@ -176,7 +186,10 @@ class Blockchain {
         let guess = `${lastProof}${proof}`;
         let guessHash = hash.update(guess);
 
-        return guessHash.digest('hex').substr(-4) == "0000";
+        var hashGuessDigest = guessHash.digest('hex');
+        //console.log("Hash guess = " + hashGuessDigest);
+
+        return hashGuessDigest.substr(0, 4) === "0000";
     }
 
     /** Simple Proof of Work algorithm
@@ -214,6 +227,8 @@ class Blockchain {
     */
 }
 
+// ---------------*******-------------
+
 // Set up the server
 var app = express();
 app.use(bodyParser.json());
@@ -229,9 +244,8 @@ app.get('/mine', function(req, res) {
     let lastProof = last_block.proof;
     let proof = blockchain.proof_of_work(lastProof);
 
-    // We must receive a reward for finding the proof.
-    // The sender is "0" to signify that this node has mined a new coin.
-    blockchain.newTransaction("0", nodeUUID, 1);
+    // Assign a mining reward for finding the proof
+    blockchain.newTransaction("Miner-Reward", nodeUUID, 1);
 
     // Forge the new Block by adding it to the chain
     let previousHash = Blockchain.hashBlock(last_block);
@@ -251,31 +265,31 @@ app.get('/mine', function(req, res) {
 app.get('/chain', function(req, res) {
     let response = {
         chain: blockchain.chain,
-        length: blockchain.chain.length,
+        chainLength: blockchain.chain.length,
     };
 
     res.status(200).send(JSON.stringify(response));
 });
 
-// Resolve nodes, consensus algo
-// TODO - not sure if working yet...
+// Resolve nodes, consensus algo - make sure everyone has the same valid chain
 app.get('/nodes/resolve', function(req, res) {
-    let replaced = blockchain.resolveConflicts();
-    let response = "";
+    blockchain.resolveConflicts(function(wasReplaced) {
+        let response;
 
-    if (replaced) {
-        response = {
-            message: "Our chain was replaced",
-            new_chain: blockchain.chain
-        };
-    } else {
-        response = {
-            message: "Our chain is authoritative",
-            chain: blockchain.chain
-        };
-    }
+        if (wasReplaced) {
+            response = {
+                message: "Our chain was replaced",
+                new_chain: blockchain.chain
+            };
+        } else {
+            response = {
+                message: "Our chain is authoritative",
+                chain: blockchain.chain
+            };
+        }
 
-    return res.status(200).send(response);
+        return res.status(200).send(response);
+    });
 });
     
 /** Create/register a new transaction
@@ -313,7 +327,6 @@ app.post('/nodes/register', function(req, res) {
 
     let nodesList = req.body.nodes;
     nodesList.forEach(function(node) {
-        // console.log("node = " + node);
         blockchain.registerNode(node);
     });
 
