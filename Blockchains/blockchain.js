@@ -186,7 +186,7 @@ class Blockchain {
         let guess = `${lastProof}${proof}`;
         let guessHash = hash.update(guess);
 
-        var hashGuessDigest = guessHash.digest('hex');
+        let hashGuessDigest = guessHash.digest('hex');
         //console.log("Hash guess = " + hashGuessDigest);
 
         return hashGuessDigest.substr(0, 4) === "0000";
@@ -339,6 +339,7 @@ app.post('/nodes/register', function(req, res) {
 });
 
 // Set the port number and start the server:
+// Example usage: 'node blockchain.js 5002'
 let port;
 if (process.argv[2] && process.argv[2] > 0 && process.argv[2] < 66666) {
     port = process.argv[2];
