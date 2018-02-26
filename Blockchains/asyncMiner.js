@@ -37,10 +37,16 @@ function testMiner(inputStr, targetDifficulty) {
     });
 }
 
-async function runMiner(targetDifficulty) {
-    let winningNonce = await testMiner("Buy more cryptocurrency dude", targetDifficulty);
+function runMiner(inputStr, targetDifficulty) {
+    let winningNonce = testMiner(inputStr, targetDifficulty);
+    return winningNonce;
+}
+
+async function runMinerAsync(inputStr, targetDifficulty) {
+    let winningNonce = await testMiner(inputStr, targetDifficulty);
 
     console.log("The 'winning' nonce is : " + winningNonce);
+    return winningNonce;
 }
 
 // Demo to run a timer on 100 SHA-256 hash ops
@@ -48,12 +54,15 @@ console.time('100-elements-SHA-256');
 for (let i = 0; i < 100; i++) {
     let hash = crypto.createHash('sha256');
     hash.update(i.toString());
-    // console.log(hash.digest('hex'));
+    let digest = hash.digest('hex');
+    // console.log(digest);
 }
 console.timeEnd('100-elements-SHA-256');
 
-console.time('runMiner() - difficulty 4');
-runMiner(4);
-console.timeEnd('runMiner() - difficulty 4');
+console.time('runMinerAsync() - difficulty 4');
+runMinerAsync("Buy more cryptocurrency dude", 4);
+console.timeEnd('runMinerAsync() - difficulty 4');
 
-//console.log(testMiner("Buy more crypto!", 4));
+console.time('runMinerAsync() - difficulty 5');
+runMinerAsync("Buy more cryptocurrency dude", 5);
+console.timeEnd('runMinerAsync() - difficulty 5');
