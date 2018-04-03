@@ -17,7 +17,7 @@
 </head>
 <body>
   <div id="app">
-    {{ myMessage }}
+    <h2>{{ myMessage }}</h2>
   </div>
 
   <div id="app-2">
@@ -29,8 +29,8 @@
   <div id="app-3">
     <button v-on:click="seen = !seen">Toggle</button>
     <transition name="bounce">
-      <p v-if="seen">Now you see me</p>
-      <!-- <p v-if="seen">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris facilisis enim libero, at lacinia diam fermentum id. Pellentesque habitant morbi tristique senectus et netus.</p> -->
+      <!-- <p v-if="seen">Now you see me</p> -->
+      <p v-if="seen">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris facilisis enim libero, at lacinia diam fermentum id. Pellentesque habitant morbi tristique senectus et netus.</p>
     </transition>
   </div>
 
