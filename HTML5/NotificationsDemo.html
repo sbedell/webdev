@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Web Notification API Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <script>
+        function notifyMe() {
+            // Check if the browser supports notifications:
+            if (!("Notification" in window)) {
+                alert("This browser does not support desktop notification");
+                
+                // Next, let's check whether notification permissions have already been granted:
+            } else if (Notification.permission === "granted") {
+                // If it's okay let's create a notification:
+                spawnNotification("Fuck Donald Trump!", "http://doc.jsfiddle.net/_downloads/jsfiddle-logo.png", "Dummy Notification")
+
+                // Otherwise, we need to ask the user for permission:
+            } else if (Notification.permission !== "denied") {
+                Notification.requestPermission(function(permission) {
+                    // If the user accepts, let's create a notification
+                    if (permission === "granted") {
+                        var notification = new Notification("Hi there2!");
+                    }
+                });
+            }
+            // At last, if the user has denied notifications, and you 
+            // want to be respectful there is no need to bother them any more.
+        }
+
+        Notification.requestPermission().then(function(result) {
+            console.log(result);
+        });
+
+        // Generic function for spawning a notification
+        function spawnNotification(body, icon, title) {
+            var options = {
+                body: body,
+                icon: icon
+            };
+            var n = new Notification(title, options);
+        }
+    </script>
+  </head>
+  <body>
+    <!-- Learn about this code on MDN: https://developer.mozilla.org/en-US/docs/Web/API/notification -->
+    <button onclick="notifyMe()">Notify me!</button>
+  </body>
+</html>
