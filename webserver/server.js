@@ -7,8 +7,7 @@ var app = express();
 app.use(helmet());
 
 // set the static files location; /public/img will be /img for users
-// NOTE - Not using right now
-// app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public'));
 
 // Error handling:
 app.use(function(err, req, res, next) {
