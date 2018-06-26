@@ -12,12 +12,12 @@ const filename = process.argv[2];
 const input = fs.createReadStream(filename);
 let hash = crypto.createHash('sha256');
 
-input.on('readable', () => {
+input.on('readable', function() {
   let data = input.read();
 
-  if (data)
+  if (data) {
     hash.update(data);
-  else {
+  } else {
     console.log(`\nThe SHA-256 hash of ${filename} is`);
     console.log(`${hash.digest('hex')}`);
   }

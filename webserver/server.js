@@ -19,7 +19,13 @@ app.use(function(err, req, res, next) {
 });
 
 app.get('/', function(request, response) {
-	response.send("Hello World");
+	//response.send("Hello World");
+	response.send(`Hello World! We are using Node.js ${process.versions.node}
+		and OpenSSL ${process.versions.openssl} running on ${process.platform} ${process.arch}
+		for ${process.uptime()} seconds`);
+   
+    // and Electron <script>document.write(process.versions.electron);</script>
+    // running on <script>document.write(process.platform);</script>.</p>
 });
 
 const port = process.env.PORT || 8080;
