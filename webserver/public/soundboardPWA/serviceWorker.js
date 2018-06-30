@@ -42,10 +42,12 @@ self.addEventListener('fetch', function(event) {
 
   event.respondWith(caches.open(cacheName).then(function(cache) {
     return fetch(event.request).then(function(response) {
+      console.log('[Service Worker] Fetching from network');
       cache.put(event.request.url, response.clone());
       return response;
     }).catch(function() {
       // return cached content if network fails
+      console.log('[Service Worker] Fetching from cache');
       return cache.match(event.request);
     });
   }));
