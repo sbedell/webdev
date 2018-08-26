@@ -14,5 +14,3 @@ crypto.randomBytes(16, function(err, buf) {
 // Synchronous
 const buf = crypto.randomBytes(256);
 console.log(`\n${buf.length} bytes of random data: ${buf.toString('hex')}`);
-
-
