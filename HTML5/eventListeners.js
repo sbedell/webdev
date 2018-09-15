@@ -2,9 +2,7 @@ var myPara = document.getElementById("myp");
 var myButton = document.getElementById("mybutton");
 
 myPara.addEventListener("copy", textCopy);
-
 myPara.addEventListener("click", toggleDisable);
-
 myButton.addEventListener("click", buttonClick);
 
 function textCopy() {

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Stack Overflow Error Handling LOL</title>
+    
+    <meta charset="utf-8">
+	  <meta name="description" content="Sends your error message to StackOverflow lol">
+	  <meta name="keywords" content="Javascript, HTML5, StackOverflow, Errors">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+
+  <body>
+    <button id="theButton">Click this button to throw an error</button>
+    
+    <script>
+      /**
+       * This purposely throws an Error and then logs the error message and 
+       * searches Stack Overflow for the error message. Could be used in a 
+       * real try/catch if you want to.
+      */
+      function onButtonClick() {
+        try {
+          throw new TypeError("you done goofed");
+        } catch(e) {
+          console.log(e);
+          console.log("Error Name: " + e.name);
+          console.log("Error message: " + e.message);
+          
+          window.open("http://stackoverflow.com/search?q=[js]+" + e.message);
+        }
+      }
+
+      document.getElementById("theButton").onclick = onButtonClick;
+    </script>
+  </body>
+</html>

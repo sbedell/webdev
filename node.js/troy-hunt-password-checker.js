@@ -70,6 +70,7 @@ function hasPasswordBeenPwned(yourPassword) {
   console.log("Querying " + options.hostname + options.path); // INFO
 
   let req = https.request(options, function(response) {
+    // console.log(response.headers);
     if (response.statusCode == 200) {
       let str = '';
       response.on('data', function(chunk) {
@@ -92,7 +93,7 @@ function hasPasswordBeenPwned(yourPassword) {
 
         if (match) {
           console.log(`\nPWNED - this password has been seen ${count} times before.`);
-          console.log("This password has previously appeared in a data breach and should never be used. If you've ever used it anywhere before, change it! ");
+          console.log("\"This password has previously appeared in a data breach and should never be used. If you've ever used it anywhere before, change it!\"");
           console.log(" - Troy Hunt");
         } else {
           console.log(`\nGood news — no pwnage found!
@@ -117,6 +118,9 @@ function hasPasswordBeenPwned(yourPassword) {
 }
 
 // starting "main":
+
+//console.log(process.argv);
+
 if (process.argv[2]) {
   let yourPassword = process.argv[2].trim();
   hasPasswordBeenPwned(yourPassword);
