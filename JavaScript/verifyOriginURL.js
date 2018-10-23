@@ -7,9 +7,8 @@ function getHostName(url) {
     return "";
   }
 
-  var a = document.createElement("a");
-  a.href = url;
-  return a.hostname;
+  var testUrl = new URL(url);
+  return testUrl.hostname;
 }
 
 // "testing" - should print "labs.detectify.com"

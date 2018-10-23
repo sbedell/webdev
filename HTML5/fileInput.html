@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>File Input Test [HTML5]</title>
+    
+    <meta charset="utf-8">
+    <!-- <meta name="author" content="Author Name">
+    <meta name="description" content="Description goes here">
+    <meta name="keywords" content="Comma, separated, keywords"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+
+        legend {
+            background-color: #000;
+            color: #fff;
+            padding: 3px 6px;
+        }
+
+        label {
+            margin-top: 1rem;
+            display: block;
+            font-size: .8rem;
+        }
+    </style>
+  </head>
+
+  <body>
+    <fieldset>
+        <legend>Upload Files</legend>
+        
+        <div>
+            <label for="avatar">Profile picture:</label>
+            <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" />
+        </div>
+        
+        <div>
+            <label for="file">Choose file(s) to upload</label>
+            <input type="file" id="fileInput" name="file" multiple>
+        </div>
+        <div>
+            <button id="submitButton" type="button">Submit</button>
+        </div>
+    </fieldset>
+
+    <script>
+        document.getElementById("submitButton").addEventListener("click", function() {
+            // fileInput is an HTML input element: <input type="file" id="fileInput" name="file" multiple>
+            var fileInput = document.getElementById("fileInput");
+
+            // files is a FileList object (similar to NodeList)
+            var files = fileInput.files;
+            var file;
+
+            // loop through files
+            for (var i = 0; i < files.length; i++) {
+                // get item
+                file = files[i];
+                //or
+                // file = files.item(i);
+
+                // file properties you can use: name, lastModified, size, type
+                console.log(`File Name: ${file.name}, \t lastModified: ${Date(file.lastModified)}, \t file size: ${file.size} bytes, \t file type: ${file.type}`);
+            }
+        });
+    </script>
+  </body>
+</html>
+
+
+
+  
