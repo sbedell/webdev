@@ -1,3 +1,7 @@
+.main-content {
+  text-align: center;
+}
+
 h1 {
   /* font-size: 1.2em;
   color: #999;
@@ -27,14 +31,10 @@ nav a:visited, a:link {
 }
 
 nav a:hover {
-  color: #039be5;
   background-color: #cfd8dc;
 }
 
 nav a.active {
   color: #039be5;
-}
-
-.main-div {
-  text-align: center;
+  background-color: #cfd8dc;
 }
