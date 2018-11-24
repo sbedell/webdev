@@ -1,6 +1,9 @@
 /* HeroDetailComponent's private CSS styles */
+.selected-hero {
+  text-align: center;
+}
+
 label {
-  display: inline-block;
   width: 3em;
   margin: .5em 0;
   color: #607D8B;
@@ -11,10 +14,11 @@ input {
   height: 2em;
   font-size: 1em;
   padding-left: .4em;
+  margin: 10px 0;
 }
 
 button {
-  margin-top: 20px;
+  margin: 20px 8px 0 8px;
   font-family: Arial;
   background-color: #eee;
   border: none;

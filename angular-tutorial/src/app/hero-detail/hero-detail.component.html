@@ -1,11 +1,15 @@
 <div class="selected-hero" *ngIf="hero">
   <h2>{{hero.name | titlecase }} Details</h2>
-  <div><span>id: </span>{{hero.id}}</div>
+  
   <div>
-    <label>name:
+    <label>Name: <br>
       <input [(ngModel)]="hero.name" placeholder="Hero Name">
     </label>
   </div>
+  <div>
+    <span>Id: </span>{{hero.id}}
+  </div>
 
+  <button (click)="saveHero()">Save</button>
   <button (click)="goBack()">Go Back</button>
 </div>
