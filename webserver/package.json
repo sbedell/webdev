@@ -4,7 +4,7 @@
   "description": "demo webserver for testing HTML5 and Javascript code",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -24,7 +24,5 @@
     "express": "^4.16.3",
     "helmet": "^3.13.0"
   },
-  "devDependencies": {
-    "nodemon": "^1.18.4"
-  }
+  "devDependencies": {}
 }
