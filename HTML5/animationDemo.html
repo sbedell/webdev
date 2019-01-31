@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>CSS Animation Demo</title>
+    
+    <meta charset="utf-8">
+    <meta name="author" content="Author Name">
+	  <meta name="description" content="CSS Animation Demo">
+	  <meta name="keywords" content="CSS, animation,">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Pulled some code and inspiration from: https://daneden.github.io/animate.css/ -->
+
+    <style>
+      img {
+        height: 200px;
+        margin: 15px;
+
+        animation-name: rotate;
+        animation-duration: 3s;
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+      }
+
+      p {
+        margin: 15px;
+        animation-name: rotate-text;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+      }
+
+      @keyframes rotate {
+        from {
+          transform-origin: center;
+          transform: rotate3d(0, 0, 1, 360deg);
+          opacity: 1;
+        }
+
+        50% {
+          height: 300px;
+          opacity: 0.5;
+        }
+ 
+        /*
+        75% {
+          height: 150px;
+        } */
+
+        to {
+          transform-origin: center;
+          transform: rotate3d(0, 0, 1, 0deg);
+          opacity: 1;
+        }
+      }
+
+      @keyframes rotate-text {
+        from {
+          transform-origin: 10%;
+          transform: rotate(0deg);
+          font-size: 12px;
+        }
+
+        to {
+          transform: rotate(360deg);
+          font-size: 75px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <img src="Firefox_Logo2017.png">
+    <p>Firefox Rules</p>
+  </body>
+</html>
