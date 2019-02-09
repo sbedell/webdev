@@ -21,8 +21,8 @@
   "author": "SB",
   "homepage": "https://github.com/sbedell/webdev#readme",
   "dependencies": {
-    "express": "^4.16.3",
-    "helmet": "^3.13.0"
+    "express": "^4.16.4",
+    "helmet": "^3.15.0"
   },
   "devDependencies": {}
 }
