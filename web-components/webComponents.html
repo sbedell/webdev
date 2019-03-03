@@ -111,17 +111,22 @@
           this.setAttribute('role', 'button');
           this.setAttribute('tabindex', '0');
         }
+        
         connectedCallback() {
           let shadowRoot = this.attachShadow({ mode: 'open' });
           shadowRoot.appendChild(document.importNode(template2.content, true));
           this.iconEl = shadowRoot.querySelector('img');
           this.setIcon(this.getAttribute('icon'));
+          
+          this.addEventListener('click', e => alert(`Fuck Donald Trump`));
         }
+        
         attributeChangedCallback(attr, oldVal, newVal) {
           if (attr === 'icon' && oldVal !== newVal) {
             this.setIcon(newVal);
           }
         }
+        
         setIcon(url) {
           if (!this.iconEl) return;
           if (url === null) {
