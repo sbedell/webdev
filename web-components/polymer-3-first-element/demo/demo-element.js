@@ -14,6 +14,11 @@ class DemoElement extends PolymerElement {
       <h3>Statically-configured icon-toggles</h3>
       <icon-toggle toggle-icon="star"></icon-toggle>
       <icon-toggle toggle-icon="star" pressed></icon-toggle>
+
+      <icon-toggle toggle-icon="add"></icon-toggle>
+      <icon-toggle toggle-icon="menu"></icon-toggle>
+      <icon-toggle toggle-icon="menu" pressed></icon-toggle>
+      <icon-toggle toggle-icon="settings" pressed></icon-toggle>
         
       <h3>Data-bound icon-toggle</h3>
       <!-- use a computed binding to generate the message -->
