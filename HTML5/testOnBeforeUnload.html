@@ -1,13 +1,26 @@
+<!DOCTYPE html>
+
 <html>
-<body>
-    <p>hit the back button</p>
-    <script>
-        //window.addEventListener("beforeunload", function(e) {
-         //   return "You are going to leave the page?!";
-        //)};
-        window.onbeforeunload = function(event) {
-            return "you're going to leave my page?! :( ";
-        };
+  <head>
+    <title>Beforeunload Event demo</title>
+    
+    <meta charset="utf-8">
+    <!-- <meta name="author" content="Author Name"> 
+	<!--<meta name="description" content="Description goes here">-->
+	<!--<meta name="keywords" content="Comma, separated, keywords">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+
+  <body>
+    <p>Try to leave this page to trigger the "beforeunload" event.</p>
+    
+    <script>        
+        window.addEventListener("beforeunload", function(event) {
+          // Cancel the event as stated by the standard.
+          event.preventDefault();
+          // Chrome requires returnValue to be set.
+          event.returnValue = "You're leaving already?! :(";
+        });
     </script>
-</body>
+  </body>
 </html>
