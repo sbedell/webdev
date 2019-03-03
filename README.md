@@ -23,6 +23,11 @@ Node.js demo code that can be run in the command line via `node filename`.
 This code is all based off of code from the official TypeScript documentation page.
 - http://www.typescriptlang.org/docs/tutorial.html
 
+## web-components
+Demo code for Web Components
+- https://developer.mozilla.org/en-US/docs/Web/Web_Components
+- https://polymer-library.polymer-project.org/3.0/docs/first-element/intro
+
 ## webserver
 A basic node.js server running Express, Helmet, and Nodemon.
 Use 'npm install' to install the node components and then `npm start` to start nodemon or just `node server.js` to start the server without nodemon.
