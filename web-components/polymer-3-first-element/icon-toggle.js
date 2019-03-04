@@ -8,12 +8,14 @@ class IconToggle extends PolymerElement {
         :host {
           display: inline-block;
         }
+
         iron-icon {
-          fill: rgba(0,0,0,0);
-          stroke: currentcolor;
+          fill: var(--icon-toggle-color, rgba(0,0,0,0));
+          stroke: var(--icon-toggle-outline-color, currentcolor);
         }
+        
         :host([pressed]) iron-icon {
-          fill: currentcolor;
+          fill: var(--icon-toggle-pressed-color, currentcolor);
         }
       </style>
   
@@ -38,6 +40,15 @@ class IconToggle extends PolymerElement {
 
   constructor() {
     super();
+
+    //this.addEventListener('click', this.toggle.bind(this));
+    this.addEventListener('click', () => {
+      this.toggle();
+    });
+  }
+
+  toggle() {
+    this.pressed = !this.pressed;
   }
 }
 

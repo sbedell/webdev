@@ -8,6 +8,10 @@ class DemoElement extends PolymerElement {
       <style>
         :host {
           font-family: sans-serif;
+
+          --icon-toggle-color: lightgrey;
+          --icon-toggle-outline-color: black;
+          --icon-toggle-pressed-color: red;
         }
       </style>
       
@@ -17,8 +21,7 @@ class DemoElement extends PolymerElement {
 
       <icon-toggle toggle-icon="add"></icon-toggle>
       <icon-toggle toggle-icon="menu"></icon-toggle>
-      <icon-toggle toggle-icon="menu" pressed></icon-toggle>
-      <icon-toggle toggle-icon="settings" pressed></icon-toggle>
+      <icon-toggle toggle-icon="settings"></icon-toggle>
         
       <h3>Data-bound icon-toggle</h3>
       <!-- use a computed binding to generate the message -->
@@ -27,13 +30,14 @@ class DemoElement extends PolymerElement {
       <icon-toggle toggle-icon="favorite" pressed="{{isFav}}"></icon-toggle>
     `;
   }
+
   _message(fav) {
     if (fav) {
       return 'You really like me!';
-    } 
-    else {
+    } else {
       return 'Do you like me?';
     }
   }
 }
+
 customElements.define('demo-element', DemoElement);
