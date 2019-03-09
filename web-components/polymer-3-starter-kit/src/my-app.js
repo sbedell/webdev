@@ -21,6 +21,8 @@ import '@polymer/app-route/app-route.js';
 import '@polymer/iron-pages/iron-pages.js';
 import '@polymer/iron-selector/iron-selector.js';
 import '@polymer/paper-icon-button/paper-icon-button.js';
+import '@vaadin/vaadin-time-picker/vaadin-time-picker.js';
+import '@vaadin/vaadin-checkbox/vaadin-checkbox.js';
 import './my-icons.js';
 
 // Gesture events like tap and track generated from touch will not be
@@ -96,7 +98,7 @@ class MyApp extends PolymerElement {
           <app-header slot="header" condenses="" reveals="" effects="waterfall">
             <app-toolbar>
               <paper-icon-button icon="my-icons:menu" drawer-toggle=""></paper-icon-button>
-              <div main-title="">My App</div>
+              <div main-title="">My Polymer 3 App</div>
             </app-toolbar>
           </app-header>
 
