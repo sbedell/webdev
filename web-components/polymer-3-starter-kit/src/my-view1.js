@@ -33,8 +33,14 @@ class MyView1 extends PolymerElement {
           <br>
           
           <!-- Step 1800 is for 30 minute intervals, goes by seconds (30 * 60 = 1800) -->
-          <vaadin-time-picker id="timePicker" label="Reminder Time" step="1800" disabled></vaadin-time-picker>
+          <vaadin-time-picker id="timePicker" label="Reminder Time" 
+          step="1800" value="{{reminderTime}}" disabled></vaadin-time-picker>
         </div>
+
+        <vaadin-button id="reminderButton">
+          <iron-icon icon="icons:alarm-on" slot="prefix"></iron-icon>
+          Set Reminder
+        </vaadin-button>
       </div>
     `;
   }
@@ -47,6 +53,9 @@ class MyView1 extends PolymerElement {
       //   observer: '_pageChanged'
       // },
       // routeData: Object
+      reminderTime: {
+        type: String
+      }
     };
   }
 
@@ -56,7 +65,7 @@ class MyView1 extends PolymerElement {
 
   ready() {
     super.ready(); 
-    console.log("my-view1 is ready");
+    // console.log("my-view1 is ready");
 
     // Buggy timepicker code FROM THE OFFICIAL VAADIN WEBSITE WTF
     // const timePicker = this.$.timePicker;
@@ -84,19 +93,24 @@ class MyView1 extends PolymerElement {
     //   }
     // };
 
-    const checkBox1 = this.$.cbOne;
-    checkBox1.addEventListener('click', this.toggleTimePickerDisabled.bind(this))
+    this.$.cbOne.addEventListener('click', this.toggleTimePickerDisabled.bind(this));
+    this.$.reminderButton.addEventListener('click', this.setReminder.bind(this));
   }
 
   toggleTimePickerDisabled() {
-    console.log('Timepicker disabled? ', this.$.timePicker.disabled);
-    console.log("Checkbox 1 checked? ", this.$.cbOne.checked);
+    // console.log('Timepicker disabled? ', this.$.timePicker.disabled);
 
     if (this.$.timePicker.disabled) {
       this.$.timePicker.removeAttribute("disabled");
     } else {
       this.$.timePicker.setAttribute("disabled", "true");
+      this.$.timePicker.value = null; // reset value as well
     }
+  }
+
+  setReminder() {
+    console.log("checkbox clicked? ", this.$.cbOne.checked);
+    console.log("timePicker.value: ", this.$.timePicker.value);
   }
 }
 

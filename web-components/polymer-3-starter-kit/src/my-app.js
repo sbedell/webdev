@@ -20,10 +20,14 @@ import '@polymer/app-route/app-location.js';
 import '@polymer/app-route/app-route.js';
 import '@polymer/iron-pages/iron-pages.js';
 import '@polymer/iron-selector/iron-selector.js';
+import '@polymer/iron-icon/iron-icon.js';
+import '@polymer/iron-icons/iron-icons.js';
 import '@polymer/paper-icon-button/paper-icon-button.js';
 import '@vaadin/vaadin-time-picker/vaadin-time-picker.js';
 import '@vaadin/vaadin-checkbox/vaadin-checkbox.js';
-import './my-icons.js';
+import '@vaadin/vaadin-button/vaadin-button.js';
+
+// import './my-icons.js';
 
 // Gesture events like tap and track generated from touch will not be
 // preventable, allowing for better scrolling performance.
