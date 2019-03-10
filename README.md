@@ -1,11 +1,6 @@
 # webdev
 A bunch of random HTML, CSS, and Javascript demos and example code I've written or snagged from around the net.
 
-## Angular Tutorials
-I'm going off of the Angular quickstart and Tour of Heroes tutorials:
-- https://angular.io/docs/ts/latest/tutorial/
-- https://angular.io/docs/ts/latest/quickstart.html
-
 ## HTML
 HTML5 demos that are meant to be run in the browser (obviously, I guess?)
 
