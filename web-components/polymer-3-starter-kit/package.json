@@ -25,6 +25,12 @@
     "@polymer/polymer": "^3.1.0",
     "@vaadin/vaadin-button": "^2.1.4",
     "@vaadin/vaadin-checkbox": "^2.2.7",
+    "@vaadin/vaadin-date-picker": "^3.3.2",
+    "@vaadin/vaadin-dialog": "^2.2.1",
+    "@vaadin/vaadin-item": "^2.1.0",
+    "@vaadin/vaadin-list-box": "^1.1.0",
+    "@vaadin/vaadin-select": "^2.0.4",
+    "@vaadin/vaadin-text-field": "^2.3.5",
     "@vaadin/vaadin-time-picker": "^1.2.1",
     "@webcomponents/webcomponentsjs": "^2.2.7"
   },
