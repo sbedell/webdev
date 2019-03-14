@@ -20,7 +20,7 @@ export class StartLitElement extends LitElement {
   static get properties() {
     return {
       message: { type: String },
-      pie: { type: Boolean }
+      likesPie: { type: Boolean }
     };
   }
 
@@ -33,8 +33,8 @@ export class StartLitElement extends LitElement {
 
     // Initialize properties
     this.loadComplete = false;
-    this.message = 'Hello World from LitElement';
-    this.pie = false;
+    this.message = 'Hello World from LitElement (template)';
+    this.likesPie = false;
   }
 
   /**
@@ -48,17 +48,17 @@ export class StartLitElement extends LitElement {
         :host([hidden]) { display: none; }
       </style>
 
-      <h1>Start LitElement!</h1>
+      <h1>Start LitElement! (from template)</h1>
       <p>${this.message}</p>
 
       <input name="myinput" id="myinput" 
         type="checkbox"
-        ?checked="${this.pie}"
+        ?checked="${this.likesPie}"
         @change="${this.togglePie}">
 
       <label for="myinput">I like pie.</label>
       
-      ${this.pie ? html`<lazy-element></lazy-element>` : html``}
+      ${this.likesPie ? html`<lazy-element message="pie"></lazy-element>` : html``}
     `;
   }
 
@@ -80,7 +80,7 @@ export class StartLitElement extends LitElement {
    * - Call a method to load the lazy element if necessary
    */
   togglePie(e) {
-    this.pie = !this.pie;
+    this.likesPie = !this.likesPie;
     this.loadLazy();
   }
 
@@ -90,8 +90,10 @@ export class StartLitElement extends LitElement {
    */
   async loadLazy() {
     console.log('loadLazy');
-    if(this.pie && !this.loadComplete) {
+
+    if (this.likesPie && !this.loadComplete) {
       this.loadComplete = true;
+      
       return import('./lazy-element.js').then((LazyElement) => {
         console.log("LazyElement loaded");
       }).catch((reason) => {

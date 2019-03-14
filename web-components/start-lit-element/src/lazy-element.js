@@ -22,8 +22,14 @@ export class LazyElement extends LitElement {
         :host { display: block; }
         :host([hidden]) { display: none; }
       </style>
-      <p>You like pie.</p>
+      <p>You like ${this.message}.</p>
     `;
+  }
+
+  static get properties() {
+    return {
+      message: { type: String }
+    };
   }
 }
 // Register the element with the browser
