@@ -26,6 +26,16 @@ import '@polymer/paper-icon-button/paper-icon-button.js';
 import '@vaadin/vaadin-time-picker/vaadin-time-picker.js';
 import '@vaadin/vaadin-checkbox/vaadin-checkbox.js';
 import '@vaadin/vaadin-button/vaadin-button.js';
+import '@vaadin/vaadin-combo-box/vaadin-combo-box.js';
+import '@vaadin/vaadin-date-picker/vaadin-date-picker.js';
+import '@vaadin/vaadin-item/vaadin-item.js'
+import '@vaadin/vaadin-list-box/vaadin-list-box.js';
+import '@vaadin/vaadin-select/vaadin-select.js';
+import '@vaadin/vaadin-text-field/vaadin-text-field.js';
+import '@vaadin/vaadin-text-field/vaadin-text-area.js'
+import '@vaadin/vaadin-text-field/vaadin-password-field.js';
+import '@vaadin/vaadin-text-field/vaadin-number-field';
+import '@vaadin/vaadin-text-field/vaadin-email-field';
 
 // import './my-icons.js';
 
@@ -136,13 +146,18 @@ class MyApp extends PolymerElement {
   }
 
   _routePageChanged(page) {
+    let myPages = [
+      'view1',
+      'view2',
+      'view3'
+    ];
      // Show the corresponding page according to the route.
      //
      // If no page was found in the route data, page will be an empty string.
      // Show 'view1' in that case. And if the page doesn't exist, show 'view404'.
     if (!page) {
       this.page = 'view1';
-    } else if (['view1', 'view2', 'view3'].indexOf(page) !== -1) {
+    } else if (myPages.indexOf(page) !== -1) {
       this.page = page;
     } else {
       this.page = 'view404';

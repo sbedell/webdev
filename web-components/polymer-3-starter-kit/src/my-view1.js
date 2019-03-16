@@ -25,9 +25,7 @@ class MyView1 extends PolymerElement {
       <div class="card">
         <div class="circle">1</div>
         <h1>View One</h1>
-        <p>Ut labores minimum atomorum pro. Laudem tibique ut has.</p>
-        <p>Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</p>
-
+        
         <div>
           <vaadin-checkbox id="cbOne">Set Reminder Time?</vaadin-checkbox>
           <br>
@@ -64,7 +62,8 @@ class MyView1 extends PolymerElement {
   // }
 
   ready() {
-    super.ready(); 
+    super.ready();
+    
     // console.log("my-view1 is ready");
 
     // Buggy timepicker code FROM THE OFFICIAL VAADIN WEBSITE WTF
