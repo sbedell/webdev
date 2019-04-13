@@ -15,14 +15,14 @@ Node.js demo code that can be run in the command line via `node filename`.
 ## Tutorials
 A bunch of Javascript and general web development tutorials I've done.
 
-### Typescript
+#### Typescript
 - This code is all based off of code from the official TypeScript documentation page.
 - http://www.typescriptlang.org/docs/tutorial.html
 
-### Shaping up with Angular.js
+#### Shaping up with Angular.js
 - https://www.codeschool.com/courses/shaping-up-with-angular-js
 
-### Knockout Tutorials
+#### Knockout Tutorials
 - http://learn.knockoutjs.com
 
 ## web-components
