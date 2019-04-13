@@ -92,11 +92,11 @@ function hasPasswordBeenPwned(yourPassword) {
         });
 
         if (match) {
-          console.log(`\nPWNED - this password has been seen ${count} times before.`);
+          console.log(`\n[!] PWNED - this password has been seen ${count} times before.`);
           console.log("\"This password has previously appeared in a data breach and should never be used. If you've ever used it anywhere before, change it!\"");
           console.log(" - Troy Hunt");
         } else {
-          console.log(`\nGood news — no pwnage found!
+          console.log(`\nGood news — no pwnage found.
           This password wasn't found in any of the Pwned Passwords loaded into Have I been pwned. That doesn't necessarily mean it's a good password, merely that it's not indexed on this site.
           - Troy Hunt
           `);
