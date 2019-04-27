@@ -1,31 +1,31 @@
-// ----- Example Code for redirecting requests -----
+/**
+ *  Remove fbclid and utm_ query params 
+ */
 
-// function redirectAndStripQueryParams(requestDetails) {
-//   console.log("Redirecting: " + requestDetails.url);
-//   return {
-//     redirectUrl: "https://38.media.tumblr.com/tumblr_ldbj01lZiP1qe0eclo1_500.gif"
-//   };
-// }
+function stripBadQueryParams(request) {
+  const targetQueryParams = ["fbclid" , "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
 
-// browser.webRequest.onBeforeRequest.addListener(
-//   redirect,
-//   {urls:[pattern], types:["image"]},
-//   ["blocking"]
-// );
+  let requestedUrl = new URL(request.url);
 
-// ----- Example Code for logging requests -----
+  let match = false;
 
-// var patterns = ["*://*/*?utm_*", "*://*/*&utm_*", "*://*/*?fbclid*"];
+  targetQueryParams.forEach(name => {
+    if (requestedUrl.searchParams.has(name)) {
+      // console.log("Requested URL with params to delete: ", request.url);
+      requestedUrl.searchParams.delete(name);
+      match = true;
+    }
+  });
 
-function logURL(requestDetails) {
-  console.log("Loading: " + requestDetails.url);
+  // return the stripped URL if a match is found, pass the URL on otherwise as normal (cancel: false)
+  return match ? {redirectUrl: requestedUrl.href} : {cancel: false};
 }
 
-browser.webRequest.onBeforeRequest.addListener(logURL,
-  {urls: ["*://*/*?utm_*", "*://*/*&utm_*", "*://*/*?fbclid*"]}
+browser.webRequest.onBeforeRequest.addListener(
+  stripBadQueryParams,
+  {
+    // Match all HTTP, HTTPS and WebSocket URLs.
+    urls: ["*://*/*"]
+  },
+  ["blocking"]
 );
-
-/* Removing these permissions:
-"activeTab",
-    "tabs",
-*/
