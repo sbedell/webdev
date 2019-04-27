@@ -1,7 +1,5 @@
 // ----- Example Code for redirecting requests -----
 
-var patterns = ["*://*/*?utm_*", "*://*/*&utm_*", "*://*/*?fbclid*"];
-
 // function redirectAndStripQueryParams(requestDetails) {
 //   console.log("Redirecting: " + requestDetails.url);
 //   return {
@@ -17,11 +15,17 @@ var patterns = ["*://*/*?utm_*", "*://*/*&utm_*", "*://*/*?fbclid*"];
 
 // ----- Example Code for logging requests -----
 
-// function logURL(requestDetails) {
-//   console.log("Loading: " + requestDetails.url);
-// }
+// var patterns = ["*://*/*?utm_*", "*://*/*&utm_*", "*://*/*?fbclid*"];
 
-// browser.webRequest.onBeforeRequest.addListener(
-//   logURL,
-//   {urls: ["<all_urls>"]}
-// );
+function logURL(requestDetails) {
+  console.log("Loading: " + requestDetails.url);
+}
+
+browser.webRequest.onBeforeRequest.addListener(logURL,
+  {urls: ["*://*/*?utm_*", "*://*/*&utm_*", "*://*/*?fbclid*"]}
+);
+
+/* Removing these permissions:
+"activeTab",
+    "tabs",
+*/
