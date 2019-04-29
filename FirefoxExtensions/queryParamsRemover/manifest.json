@@ -12,6 +12,12 @@
   "permissions": [
     "webRequest",
     "webRequestBlocking",
-    "<all_urls>"
-  ]
+    "http://*/*",
+    "https://*/*"
+  ],
+  "applications": {
+    "gecko": {
+      "id": "sb@github.com"
+    }
+  }
 }
