@@ -3,7 +3,7 @@
  */
 
 function stripBadQueryParams(request) {  
-  const targetQueryParams = ["fbclid", "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "utm_referrer"];
+  const targetQueryParams = ["fbclid", "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
 
   let requestedUrl = new URL(request.url);
   let match = false;
@@ -19,13 +19,19 @@ function stripBadQueryParams(request) {
   return match ? {redirectUrl: requestedUrl.href} : {cancel: false};
 }
 
-// Could add this to the filter as well: types: ['main_frame', 'sub_frame']
-
+/** 
+*  Event listener for onBeforeRequest (HTTP Requests)
+*  
+*  Info for the RequestFilter: https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/webRequest/RequestFilter
+*  Info on Types: https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/webRequest/ResourceType
+*  
+*/
 browser.webRequest.onBeforeRequest.addListener(
   stripBadQueryParams,
   {
-    // Match all HTTP and HTTPS URLs.
-    urls: ["http://*/*", "https://*/*"]
+    // Filters: Match all HTTP and HTTPS URLs.
+    urls: ["http://*/*", "https://*/*"],
+    types: ["main_frame", "sub_frame", "beacon", "ping"]
   },
   ["blocking"]
 );

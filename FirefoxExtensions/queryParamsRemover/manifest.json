@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Remove FBclid and UTM",
   "version": "0.1",
-  "description": "Removes fbclid and utm_ (Urchin Tracking Module) query params in URLs",
+  "description": "Removes fbclid and utm_ (Urchin Tracking Module) query parameters in URLs",
   "icons": {
     "48": "icons/noFbclidUtmIcon.png"
   },

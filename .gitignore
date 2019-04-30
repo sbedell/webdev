@@ -6,3 +6,6 @@
 
 # Typings
 angular2-tutorial/typings/**
+
+# Zip files
+*.zip
