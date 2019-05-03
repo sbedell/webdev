@@ -2,8 +2,11 @@
  *  Remove fbclid and utm_ query params 
  */
 
+ "use strict";
+
 function stripBadQueryParams(request) {  
-  const targetQueryParams = ["fbclid", "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
+  const targetQueryParams = ["fbclid", "utm_source", "utm_medium", "utm_campaign", 
+        "utm_term", "utm_content", "utm_brand"];
 
   let requestedUrl = new URL(request.url);
   let match = false;
@@ -26,12 +29,13 @@ function stripBadQueryParams(request) {
 *  Info on Types: https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/webRequest/ResourceType
 *  
 */
-browser.webRequest.onBeforeRequest.addListener(
+let apiInterface = (typeof browser != "undefined") ? browser : chrome;
+apiInterface.webRequest.onBeforeRequest.addListener(
   stripBadQueryParams,
   {
     // Filters: Match all HTTP and HTTPS URLs.
     urls: ["http://*/*", "https://*/*"],
-    types: ["main_frame", "sub_frame", "beacon", "ping"]
+    types: ["main_frame", "sub_frame", "ping"]
   },
   ["blocking"]
 );
