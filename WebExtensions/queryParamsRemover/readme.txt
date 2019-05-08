@@ -1,1 +1,0 @@
-This still needs to be signed via addons.mozilla.org (AMO) before you can install it locally or via the amo site in general... just gonna do temporary loading for now via about:debugging. 
