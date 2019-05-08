@@ -14,10 +14,11 @@
     "webRequestBlocking",
     "http://*/*",
     "https://*/*"
-  ],
-  "applications": {
-    "gecko": {
-      "id": "sb@github.com"
-    }
-  }
+  ]
+  //,
+  // "applications": {
+  //   "gecko": {
+  //     "id": "sb@github.com"
+  //   }
+  // }
 }
