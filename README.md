@@ -32,7 +32,9 @@ Demo code for Web Components
 - Lit Element: https://lit-element.polymer-project.org/guide/start
 
 ## webserver
-A basic node.js server running Express, Helmet, and Nodemon.
+A basic node.js server running Express and [Helmet](https://github.com/helmetjs/helmet).
 
-Use 'npm install' to install the node components and then `npm start` to start nodemon or just `node server.js` to start the server without nodemon.
 Currently using this to test a Progressive Web App soundboard and a random WebWorkers demo, both in the "public/" folder.
+
+1. `npm install` to install the node dependencies.
+2. `npm start` or `node server.js` to start the server.
