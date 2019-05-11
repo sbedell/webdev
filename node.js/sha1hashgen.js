@@ -25,5 +25,4 @@ if (process.argv[2]) {
   console.error("\nPlease input a filename");
   console.error("Expected usage:");
   console.error("node sha1hashgen.js somefilename.filepath");
-  return;
 }
