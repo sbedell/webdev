@@ -83,7 +83,6 @@ class MyTimePicker extends PolymerElement {
   ready() {
     super.ready();
 
-    // console.log("time picker is ready");
     this.$.theTimePicker.addEventListener('value-changed', this.handleValueChanged.bind(this));
   }
 

@@ -11,6 +11,7 @@
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import './shared-styles.js';
 import './components/my-time-picker.js';
+import './components/my-time-picker-html.js';
 
 class MyView2 extends PolymerElement {
   static get template() {
@@ -27,7 +28,9 @@ class MyView2 extends PolymerElement {
         <div class="circle">2</div>
         <h1>View Two</h1>
 
-        <my-time-picker input-label="pick a damn time"></my-time-picker>
+        <my-time-picker input-label="pick a time"></my-time-picker>
+
+        <my-time-picker-html></my-time-picker-html> 
 
         <p>Ea duis bonorum nec, falli paulo aliquid ei eum.</p>
         <p>Id nam odio natum malorum, tibique copiosae expetenda mel ea.Detracto suavitate repudiandae no eum. Id adhuc minim soluta nam.Id nam odio natum malorum, tibique copiosae expetenda mel ea.</p>
