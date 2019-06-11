@@ -20,8 +20,15 @@ td {
     border: 1px solid black;
     padding: 10px;
     height: 20px;
-    width: 20px;
-    /*float: left;*/
+    width: 25px;
+    transition: .5s cubic-bezier;
+    background-color: lightgrey;
+}
+
+td:hover {
+    filter: invert(1);
+    transform: rotate(5turn) scale(1.5);
+    box-shadow: -3px 8px 5px blueviolet;
 }
 
 main,
