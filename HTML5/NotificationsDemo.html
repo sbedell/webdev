@@ -15,14 +15,14 @@
                 // Next, let's check whether notification permissions have already been granted:
             } else if (Notification.permission === "granted") {
                 // If it's okay let's create a notification:
-                spawnNotification("Fuck Donald Trump!", "http://doc.jsfiddle.net/_downloads/jsfiddle-logo.png", "Dummy Notification")
+                spawnNotification("Fuck Donald Trump!", "https://sbedell.github.io/favicon.ico", "Dummy Notification")
 
                 // Otherwise, we need to ask the user for permission:
             } else if (Notification.permission !== "denied") {
                 Notification.requestPermission(function(permission) {
                     // If the user accepts, let's create a notification
                     if (permission === "granted") {
-                        var notification = new Notification("Hi there2!");
+                        var notification = new Notification("Hi there2!", null, "Hello");
                     }
                 });
             }
@@ -45,7 +45,8 @@
     </script>
   </head>
   <body>
-    <!-- Learn about this code on MDN: https://developer.mozilla.org/en-US/docs/Web/API/notification -->
     <button onclick="notifyMe()">Notify me!</button>
+    <br>
+    <p>Learn about this code on MDN: <a target="blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/notification">https://developer.mozilla.org/en-US/docs/Web/API/notification</a></p>
   </body>
 </html>
