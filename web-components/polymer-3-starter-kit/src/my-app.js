@@ -26,7 +26,6 @@ import '@polymer/paper-icon-button/paper-icon-button.js';
 import '@vaadin/vaadin-time-picker/vaadin-time-picker.js';
 import '@vaadin/vaadin-checkbox/vaadin-checkbox.js';
 import '@vaadin/vaadin-button/vaadin-button.js';
-import '@vaadin/vaadin-combo-box/vaadin-combo-box.js';
 import '@vaadin/vaadin-date-picker/vaadin-date-picker.js';
 import '@vaadin/vaadin-item/vaadin-item.js'
 import '@vaadin/vaadin-list-box/vaadin-list-box.js';
