@@ -10,20 +10,20 @@ app.use(helmet());
 app.use(express.static(__dirname + '/public'));
 
 // Error handling:
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
 	console.error(err.stack);
 
 	// Sends generic error page to the user
   res.status(500).send('Error!');
 });
 
-app.get('/', function(request, response) {
+app.get('/', (request, response) => {
 	response.send(`Hello World! We are using Node.js ${process.versions.node}
 		and OpenSSL ${process.versions.openssl} running on ${process.platform} ${process.arch}
 		for ${process.uptime()} seconds.`);
 });
 
 const port = process.env.PORT || 8080;
-app.listen(port, function() {
+app.listen(port, () => {
   console.log('Node app is running on port', port);
 });
