@@ -1,0 +1,35 @@
+/* Remove Back and forward buttons when there's nothing to go Back to  */
+#back-button[disabled="true"], 
+#forward-button[disabled="true"]
+{
+    display: none;
+}
+
+/* Clean up the context (right click) menu: */
+#context-sendimage,
+#context-sendlink,
+#context-sendpage,
+#context-setDesktopBackground,
+#context-forward[disabled="true"],
+#context-back[disabled="true"],
+#context-viewbgimage[disabled="true"] 
+{ 
+    display: none; 
+}
+
+/* Apply styles to the selected tab */
+.tabbrowser-tab[selected="true"] .tab-text { 
+	font-weight: bold;
+}
+
+/* Change Tab styles */
+/* .tabbrowser-tab {
+    font-family: sans-serif;
+}
+*/
+
+/*
+#urlbar  {
+   font-family: "Lucida Sans", "Lucida Console", "Lucida Sans Typewriter", monospace !important;
+} 
+*/
