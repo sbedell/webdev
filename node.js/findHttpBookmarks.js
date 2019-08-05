@@ -5,7 +5,7 @@
 
 const fs = require('fs');
 
-const bookmarksFilename = "../../../../Downloads/bookmarks-2019-08-03.json";
+const bookmarksFilename = "../../../../Downloads/bookmarks-2019-08-04.json";
 
 fs.readFile(bookmarksFilename, (err, data) => {
   if (!err) {
@@ -16,12 +16,15 @@ fs.readFile(bookmarksFilename, (err, data) => {
     // the children of that seems to be each folder
     // console.log(bookmarksBackup.children[0].children);
 
+    // let httpCount = 0;
     let bookmarksFolders = bookmarksBackup.children[0].children;
+    
+    // Printing in CSV file output, > pipe it to a csv file in the command line
+    console.log("URL,Title,Folder");
     bookmarksFolders.forEach(bookmarksFolder => {
-      // console.log("Folder Name: ", bookmarksFolder.title);
+      // "bookmarksFolder.title" is the folder name that the bookmarks are in
       // Here it is...the actual bookmarks, except when there are subfolders...
       let bookmarks = bookmarksFolder.children;
-      // console.log(bookmarks);
       if (bookmarks) {
         bookmarks.forEach(bookmark => {
           if (bookmark.children) {
@@ -30,27 +33,25 @@ fs.readFile(bookmarksFilename, (err, data) => {
             bookmark.children.forEach(extraBookmark => {
               //console.log(`title: ${extraBookmark.title} \t URL: ${extraBookmark.uri}`);
               if (extraBookmark.uri.match(/http:\/\//)) {
-                console.log(`[!] HTTP Bookmark found! ${extraBookmark.uri} \t-\t Folder ${bookmark.title}`);
+                // httpCount++;
+                console.log(`${extraBookmark.uri},${extraBookmark.title.replace(/,/g, " ")},${bookmark.title}`);
               }
             });
           } else {
             //console.log(`title: ${bookmark.title} \t URL: ${bookmark.uri}`);
             if (bookmark.uri && bookmark.uri.match(/http:\/\//)) {
-              console.log(`[!] HTTP Bookmark found: ${bookmark.uri} \t-\t Folder: ${bookmarksFolder.title}`);
+              // HTTP bookmark found!
+              // httpCount++;
+              console.log(`${bookmark.uri},${bookmark.title.replace(/,/g, " ")},${bookmarksFolder.title}`);
             }
           }
         });
-      }
+      } 
+      // else {
+      //   console.error("No children elements found.");
+      // }
     });
   } else {
     console.error(err);
   }
 });
-
-// ** OLD code for reading in from the command line **
-// if (!process.argv[2]) {
-//   console.error("\nPlease input a filename");
-//   return;
-// } else {
-  // const filename = process.argv[2];
-// }
