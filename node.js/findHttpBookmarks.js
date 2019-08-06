@@ -5,7 +5,8 @@
 
 const fs = require('fs');
 
-const bookmarksFilename = "../../../../Downloads/bookmarks-2019-08-04.json";
+const bookmarksFilename = "../../../../Downloads/bookmarks-2019-08-06.json";
+// const bookmarksFilename = "../../../../Downloads/bookmarks-webdev-2019-08-05.json";
 
 fs.readFile(bookmarksFilename, (err, data) => {
   if (!err) {
@@ -46,10 +47,7 @@ fs.readFile(bookmarksFilename, (err, data) => {
             }
           }
         });
-      } 
-      // else {
-      //   console.error("No children elements found.");
-      // }
+      }
     });
   } else {
     console.error(err);
