@@ -13,13 +13,22 @@
 function doubleSpeak(str) {
   let doublespeak = "";
   [...str].forEach(char => { doublespeak += (char+char); });
-
   return doublespeak;
 }
 
-console.log(doubleSpeak("This is doublespeak"));
-
 // Stackexchange top solution for Javascript:
-let s = "This is doublespeak";
-s = s.replace(/./g , c=>c+c);
-console.log(s);
+function doubleSpeakSOflow(str) {
+  return str.replace(/./g, c=>c+c);
+}
+
+let testString = "This is doublespeak";
+
+console.log(doubleSpeak(testString));
+console.log(doubleSpeakSOflow(testString));
+console.assert(doubleSpeak(testString) === doubleSpeakSOflow(testString));
+
+// Stackexchange top solution one liner for Javascript:
+// let s = testString.replace(/./g , c=>c+c);
+// console.log(s);
+
+// console.log(doubleSpeakSOflow(doubleSpeakSOflow(doubleSpeakSOflow(testString))));
