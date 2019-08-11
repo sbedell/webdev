@@ -24,22 +24,22 @@ function hasUserNameBeenPwned(username) {
     }
   };
 
-  const myRequest = https.request(options, function(response) {
+  const myRequest = https.request(options, (response) => {
     if (response.statusCode == 404) {
       console.log("Congrats - this username hasn't been found in the username breach db!");
     } else {
       let str = '';
-      response.on('data', function(chunk) {
+      response.on('data', (chunk) => {
         str += chunk;
       });
 
-      response.on('end', function() {
+      response.on('end', () => {
         console.log(str);
       });
     }
   });
 
-  myRequest.on('error', function(e) {
+  myRequest.on('error', (e) => {
     console.error(e);
   });
 
@@ -69,19 +69,19 @@ function hasPasswordBeenPwned(yourPassword) {
   
   console.log("Querying " + options.hostname + options.path); // INFO
 
-  let req = https.request(options, function(response) {
+  let req = https.request(options, (response) => {
     // console.log(response.headers);
     if (response.statusCode == 200) {
       let str = '';
-      response.on('data', function(chunk) {
+      response.on('data', (chunk) => {
         str += chunk;
       });
 
-      response.on('end', function() {        
+      response.on('end', () => {        
         let match = false;
         let count = 0;
         
-        str.split("\n").forEach(function(line) {
+        str.split("\n").forEach(line => {
           // console.log(line.slice(0, line.indexOf(":"))); // DEBUG
           
           if (sha1hashedPasswordDigest.slice(5).toUpperCase() == line.slice(0, line.indexOf(":"))) {
@@ -110,7 +110,7 @@ function hasPasswordBeenPwned(yourPassword) {
     }
   }); 
 
-  req.on('error', function(e) {
+  req.on('error', (e) => {
     console.error(e);
   });
 
