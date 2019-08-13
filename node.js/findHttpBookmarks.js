@@ -33,8 +33,6 @@ fs.readFile(bookmarksFilename, (err, data) => {
           // Checking for subfolders:
           if (bookmark.children) {
             bookmark.children.forEach(extraBookmark => {
-              // console.log(extraBookmark);
-              // console.log(`title: ${extraBookmark.title} \t URL: ${extraBookmark.uri}`);
               if (extraBookmark.uri.match(/http:\/\//)) {
                 // console.log(`${extraBookmark.uri},${extraBookmark.title.replace(/,/g, " ")},${bookmark.title}`);
               } else {
@@ -42,14 +40,6 @@ fs.readFile(bookmarksFilename, (err, data) => {
               }
             });
           } else {
-            // console.log(bookmark);
-
-            // This doesn't seem to be pulling the date correctly... hmmm
-            // let dateAdded = new Date(bookmark.dateAdded);
-            // console.log("date Added: ", dateAdded);
-            // let lastModified = new Date(bookmark.lastModified);
-            // console.log("last modified: ", lastModified);
-
             if (bookmark.uri && bookmark.uri.match(/http:\/\//)) {
               // console.log(`${bookmark.uri},${bookmark.title.replace(/,/g, " ")},${bookmarksFolder.title}`);
             } else if (bookmark.uri) {
@@ -66,19 +56,14 @@ fs.readFile(bookmarksFilename, (err, data) => {
 
 function checkHttpsBookmark(httpsURL, urlTitle="", folderName="") {
   if (httpsURL.match(/^https:\/\//)) {
-    // console.log("checking: ", httpsURL);
     https.get(httpsURL, (response) => { 
       if (response.statusCode !== 200) {
         console.log(`${httpsURL},${urlTitle.replace(/,/g, " ")},${folderName},${response.statusCode}`);
       }
-  
-      // res.on('data', (d) => {
-      //   console.log(d);
-      // });
     }).on('error', e => {
-      console.log(`Error checking ${httpsURL} (${urlTitle.replace(/,/g, " ")}): ${e}`);
+      console.log(`Error checking ${httpsURL},${urlTitle.replace(/,/g, " ")},${folderName},${e}`);
     });
   } else {
-    console.log("skipping: ", httpsURL);
+    console.log(`Skipping - ${httpsURL},${urlTitle.replace(/,/g, " ")},${folderName},${e}`);
   }
 }
