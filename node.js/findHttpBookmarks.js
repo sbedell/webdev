@@ -8,8 +8,7 @@
 const fs = require('fs');
 const https = require("https");
 
-const bookmarksFilename = "../../../../Downloads/bookmarks-2019-08-10.json";
-// const bookmarksFilename = "../../../../Downloads/bookmarks-webdev-2019-08-05.json";
+const bookmarksFilename = "../../../../Downloads/bookmarks-2019-08-21.json";
 
 fs.readFile(bookmarksFilename, (err, data) => {
   if (!err) {
@@ -22,8 +21,7 @@ fs.readFile(bookmarksFilename, (err, data) => {
     let bookmarksFolders = bookmarksBackup.children[0].children;
     
     // Printing in CSV file output, > pipe it to a csv file in the command line
-    // console.log("URL,Title,Folder");
-    console.log("URL, Title, Folder, Status Code");
+    console.log("URL,Title,Folder");
     bookmarksFolders.forEach(bookmarksFolder => {
       // "bookmarksFolder.title" is the folder name that the bookmarks are in
       // Here it is...the actual bookmarks, except when there are subfolders...
@@ -33,18 +31,18 @@ fs.readFile(bookmarksFilename, (err, data) => {
           // Checking for subfolders:
           if (bookmark.children) {
             bookmark.children.forEach(extraBookmark => {
-              if (extraBookmark.uri.match(/http:\/\//)) {
-                // console.log(`${extraBookmark.uri},${extraBookmark.title.replace(/,/g, " ")},${bookmark.title}`);
-              } else {
-                checkHttpsBookmark(extraBookmark.uri, extraBookmark.title, bookmark.title);
-              }
+              if (extraBookmark.uri && (extraBookmark.uri.match(/fbclid/) || extraBookmark.uri.match(/utm_/))) {
+                console.log(`${extraBookmark.uri},${extraBookmark.title.replace(/,/g, " ")},${bookmark.title}`);
+              } 
             });
           } else {
-            if (bookmark.uri && bookmark.uri.match(/http:\/\//)) {
-              // console.log(`${bookmark.uri},${bookmark.title.replace(/,/g, " ")},${bookmarksFolder.title}`);
-            } else if (bookmark.uri) {
-              checkHttpsBookmark(bookmark.uri, bookmark.title, bookmarksFolder.title);
-            }
+            // if (!bookmark.uri) {
+              // console.log("weird: ", bookmark);
+              // Oh...it's a "separator" line in the folders...holy shit...
+            // }
+            if (bookmark.uri && (bookmark.uri.match(/fbclid/) || bookmark.uri.match(/utm_/))) {
+              console.log(`${bookmark.uri},${bookmark.title.replace(/,/g, " ")},${bookmarksFolder.title}`);
+            } 
           }
         });
       }
