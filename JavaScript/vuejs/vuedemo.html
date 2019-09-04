@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My first Vue app</title>
+    <title>Vue JS Demos</title>
     <meta charset="utf-8">
     <meta name="description" content="Vue.js tutorial/testing">
     <meta name="author" content="Steve">
@@ -13,20 +13,26 @@
     <!-- production version, optimized for size and speed -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
 
-    <link rel="stylesheet" href="./vuetest.css" />
+    <link rel="stylesheet" href="./vuedemo.css" />
 </head>
 <body>
   <div id="app">
     <h2>{{ myMessage }}</h2>
   </div>
 
+  <hr>
+
   <div id="app-2">
+    <h3>Demo 2</h3>
     <span v-bind:title="message">
       Hover your mouse over me for a few seconds to see my dynamically bound title!
     </span>
   </div>
 
+  <hr>
+
   <div id="app-3">
+    <h3>Demo 3 - toggle button</h3>
     <button v-on:click="seen = !seen">Toggle</button>
     <transition name="bounce">
       <!-- <p v-if="seen">Now you see me</p> -->
@@ -34,23 +40,35 @@
     </transition>
   </div>
 
+  <hr>
+
   <div id="app-4">
+    <h3>Demo 4 - TODO List</h3>
     <ol>
       <li v-for="todo in todos">{{ todo.text }}</li>
     </ol>
   </div> 
 
+  <hr>
+
   <div id="app-5">
+    <h3>Demo 5</h3>
     <p>{{ message }}</p>
     <button v-on:click="reverseMessage">Reverse Message</button>
   </div>
 
+  <hr>
+
   <div id="app-6">
+    <h3>Demo 6</h3>
     <p>{{ message }}</p>
     <input v-model="message">
   </div>
 
+  <hr>
+  
   <div id="app-7">
+    <h3>Demo 7 - List via Vue Components</h3>
     <ol>
       <!--
         Now we provide each todo-item with the todo object
@@ -66,7 +84,14 @@
     </ol>
   </div>
 
-  <!-- Including my own scripts -->
-  <script src="./vuetest.js"></script>
+  <hr>
+
+  <div id="count-btn-example">
+    <h3>Demo 8 - Counter with button</h3>
+    <button v-on:click="counter += 1">Add 1</button>
+    <p>The button above has been clicked {{ counter }} times.</p>
+  </div>
+
+  <script src="./vuedemo.js"></script>
 </body>
 </html>

@@ -1,9 +1,15 @@
 body {
     font: 1em "Arial", sans-serif;
+    margin: 10px auto 100px auto;
+    width: 75%;
 }
 
 div {
     margin: 15px;
+}
+
+hr {
+    color: #eee;
 }
 
 .bounce-enter-active {
