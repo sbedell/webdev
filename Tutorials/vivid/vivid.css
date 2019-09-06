@@ -1,12 +1,14 @@
+body {
+  font-family: 'Abril Fatface', cursive, sans-serif;
+}
+
 .jumbotron {
   margin-bottom: 0;
 }
 
 .main-header {
-  font-family: 'Abril Fatface', cursive, sans-serif;
   background: url("images/background.png");
   background-size: cover;
-  height: 750px;
   text-align: center;
   padding-top: 5rem;
 }
@@ -14,6 +16,7 @@
 .second-header {
   background: url("images/background-2.png");
   background-size: cover;
+  padding-left: 50px;
 }
 
 .third-header {
@@ -32,9 +35,12 @@
 
 .opacity-box {
   background-color: black;
-  opacity: 0.6;
+  opacity: 0.75;
   width: 50vw;
   margin: auto;
+  text-align: center;
+  padding: 10px;
+  font-size: 1.2em;
 }
 
 .main-footer {
@@ -44,9 +50,19 @@
   padding: 25px 0 50px 25px;
 }
 
-@media (max-width: 760px)  {
+@media (min-width: 992px) {
+  .main-header, .second-header, .third-header {
+    height: 550px;
+  }
+}
+
+@media (max-width: 768px)  {
   .main-footer {
     padding-left: 0px;
+  }
+
+  .second-header {
+    padding-left: 25px;
   }
 
   .opacity-box {
