@@ -1,18 +1,55 @@
-.test {
-  font-family: 'Abril Fatface', cursive;
-}
-
 .jumbotron {
   margin-bottom: 0;
 }
 
 .main-header {
   font-family: 'Abril Fatface', cursive, sans-serif;
-  background: url("header1.png");
+  background: url("images/background.png");
   background-size: cover;
   height: 750px;
+  text-align: center;
+  padding-top: 5rem;
 }
 
-.jumbotron .display-4 {
+.second-header {
+  background: url("images/background-2.png");
+  background-size: cover;
+}
+
+.third-header {
+  background: url("images/background-3.png");
+  background-size: cover;
   color: white;
+}
+
+.main-header .display-4 {
+  color: white;
+}
+
+.second-header .display-4 {
+  color: black;
+}
+
+.opacity-box {
+  background-color: black;
+  opacity: 0.6;
+  width: 50vw;
+  margin: auto;
+}
+
+.main-footer {
+  background-color: #191919;
+  color: #fefefe;
+  text-align: center;
+  padding: 25px 0 50px 25px;
+}
+
+@media (max-width: 760px)  {
+  .main-footer {
+    padding-left: 0px;
+  }
+
+  .opacity-box {
+    width: 80vw;
+  }
 }
