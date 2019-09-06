@@ -1,0 +1,18 @@
+.test {
+  font-family: 'Abril Fatface', cursive;
+}
+
+.jumbotron {
+  margin-bottom: 0;
+}
+
+.main-header {
+  font-family: 'Abril Fatface', cursive, sans-serif;
+  background: url("header1.png");
+  background-size: cover;
+  height: 750px;
+}
+
+.jumbotron .display-4 {
+  color: white;
+}
