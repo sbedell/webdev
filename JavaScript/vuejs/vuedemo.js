@@ -1,4 +1,4 @@
-var app = new Vue({
+let app = new Vue({
     el: '#app',
     data: {
       myMessage: 'Hello! Welcome to the Vue.js demo page!'
@@ -68,7 +68,7 @@ let app7 = new Vue({
   }
 });
 
-var example1 = new Vue({
+let example1 = new Vue({
   el: '#count-btn-example',
   data: {
     counter: 0
