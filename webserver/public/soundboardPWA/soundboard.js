@@ -11,6 +11,16 @@ function playAudio(audioId) {
   document.getElementById(audioId).play();
 }
 
+function playAllAudio() {
+  let audioTracks = document.getElementsByTagName("audio");
+  for (track of audioTracks) {
+    document.getElementById(track.id).play();
+  }
+}
+
+// Maybe make a function that plays like 5 random clips?
+// function playRandomClips() {}
+
 /**
  * Runs when the checkbox is clicked from on to off:
  */
