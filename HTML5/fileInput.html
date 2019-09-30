@@ -48,23 +48,22 @@
     </fieldset>
 
     <script>
-        document.getElementById("submitButton").addEventListener("click", function() {
+        document.getElementById("submitButton").addEventListener("click", () => {
             // fileInput is an HTML input element: <input type="file" id="fileInput" name="file" multiple>
-            var fileInput = document.getElementById("fileInput");
+            let fileInput = document.getElementById("fileInput");
 
             // files is a FileList object (similar to NodeList)
-            var files = fileInput.files;
-            var file;
+            let files = fileInput.files;
 
-            // loop through files
-            for (var i = 0; i < files.length; i++) {
-                // get item
-                file = files[i];
-                //or
-                // file = files.item(i);
+            for (let i = 0; i < files.length; i++) {
+                let file = files[i];
+                // console.log(file);
 
                 // file properties you can use: name, lastModified, size, type
-                console.log(`File Name: ${file.name}, \t lastModified: ${Date(file.lastModified)}, \t file size: ${file.size} bytes, \t file type: ${file.type}`);
+                console.log(`File Name: ${file.name}
+                Last Modified: ${Date(file.lastModified)}
+                Size: ${file.size} bytes
+                File Type: ${file.type}`);
             }
         });
     </script>

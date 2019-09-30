@@ -13,7 +13,7 @@ function playAudio(audioId) {
 
 function playAllAudio() {
   let audioTracks = document.getElementsByTagName("audio");
-  for (track of audioTracks) {
+  for (let track of audioTracks) {
     track.play();
   }
 }
