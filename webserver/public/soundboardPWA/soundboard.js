@@ -1,14 +1,13 @@
 function playAudio(audioId) {
-  if (!audioId) {
+  if (audioId) {
+    if (document.getElementById("loop-box").checked) {
+      document.getElementById(audioId).setAttribute("loop", "");
+    }
+
+    document.getElementById(audioId).play();
+  } else {
     console.error("Error: need to specify an audio Id to play audio");
-    return;
   }
-
-  if (document.getElementById("loop-box").checked) {
-    document.getElementById(audioId).setAttribute("loop", "");
-  }
-
-  document.getElementById(audioId).play();
 }
 
 function playAllAudio() {

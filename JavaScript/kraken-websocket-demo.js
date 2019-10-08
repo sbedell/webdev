@@ -10,7 +10,7 @@
 // Create WebSocket connection.
 // Sandbox URL: ws-sandbox.kraken.com
 // Production URL: ws.kraken.com
-var socket = new WebSocket("wss://ws.kraken.com");
+let socket = new WebSocket("wss://ws.kraken.com");
 
 // From Kraken: "Once the socket is open you can subscribe to a channel by sending a subscribe request message."
 socket.addEventListener('open', function(event) {
@@ -34,7 +34,7 @@ socket.addEventListener('open', function(event) {
 //   console.log('Message from server ', event.data);
 // });
 socket.onmessage = function(event) {
-  console.log('Message from server ', event.data);
+  console.log("Message from server: ", event.data);
 };
 
 // Call this to close the connection...but when?
