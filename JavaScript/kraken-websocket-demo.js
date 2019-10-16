@@ -13,7 +13,7 @@
 let socket = new WebSocket("wss://ws.kraken.com");
 
 // From Kraken: "Once the socket is open you can subscribe to a channel by sending a subscribe request message."
-socket.addEventListener('open', function(event) {
+socket.addEventListener('open', (event) => {
   let subData = {
     "event": "subscribe",
     "pair": [
