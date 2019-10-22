@@ -1,1 +1,0 @@
-"a\"};))''(nioj.)(esrever.)''(tilps.b(tacnoc.b nruter{)b(a noitcnuf";function a(b){return b.concat(b.split('').reverse().join(''));};"\a"
