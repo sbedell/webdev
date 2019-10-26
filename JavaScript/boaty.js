@@ -37,3 +37,7 @@ console.log(mcBoatFace("Player"));
 console.log(boatyGolf("boat"));
 console.log(boatyGolf("Lady"));
 console.log(boatyGolf("Donkey"));
+console.log(boatyGolf("dog"));
+
+// Appears to be true:
+console.assert(mcBoatFace("dog") == boatyGolf("dog"));
