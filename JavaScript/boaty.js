@@ -5,8 +5,8 @@
 function mcBoatFace(string) {
     string = string.charAt(0).toUpperCase() + string.substr(1).toLowerCase(); // format it to first char uppercase
 
-    var firstPart = "";
-    var secondPart = "";
+    let firstPart = "";
+    let secondPart = "";
 
     if (string.substr(-2) == "ey") {
         firstPart = string;
