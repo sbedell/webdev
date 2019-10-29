@@ -1,5 +1,5 @@
-var height : number = 2;
-var width : number = 3;
+let height : number = 2;
+let width : number = 3;
 
 console.log(calculateArea("3", width));
 console.log("Area is: " + (height * width));

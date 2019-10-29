@@ -7,7 +7,7 @@ function getHostName(url) {
     return "";
   }
 
-  var testUrl = new URL(url);
+  let testUrl = new URL(url);
   return testUrl.hostname;
 }
 

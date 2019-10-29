@@ -1,5 +1,5 @@
-var maptoSet = new Map();
-var stopObj = {
+let maptoSet = new Map();
+let stopObj = {
 	name: "Stop 1",
   routes: new Set()
 }
