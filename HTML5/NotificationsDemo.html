@@ -45,14 +45,20 @@
 
       // Generic function for spawning a notification
       function spawnNotification(body, icon, title) {
-          let options = {
-            body: body,
-            icon: icon
-          };
-          let newNote = new Notification(title, options);
+        let options = {
+          body: body,
+          icon: icon
+        };
 
-          // Automatically close the notifications after 5 seconds:
-          setTimeout(newNote.close.bind(newNote), 5000);
+        // Sets a delay in opening the Notification too:
+        // setTimeout(function() {
+        //   let newNote = new Notification(title, options);
+        // }, 4000);
+        
+        let newNote = new Notification(title, options);
+
+        // Automatically close the notifications after 5 seconds:
+        setTimeout(newNote.close.bind(newNote), 5000);
       }
     </script>
   </body>
