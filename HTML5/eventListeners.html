@@ -11,9 +11,36 @@
       Also clicking this text toggles diabling the button below.
     </p>
 
-    <button id="mybutton">MY BUTTON</button>
+    <button id="mybutton">My Button</button>
 
-    <script src="eventListeners.js"></script>
+    <script>
+      let myPara = document.getElementById("myp");
+      let myButton = document.getElementById("mybutton");
+
+      myPara.addEventListener("copy", textCopy);
+      myPara.addEventListener("click", toggleDisable);
+      myButton.addEventListener("click", buttonClick);
+
+      function textCopy(e) {
+        // This actually prevents the text from being copied
+        e.preventDefault();
+        // console.log("e: ", e);
+
+        window.alert("YOU'VE BEEN REPORTED TO THE FBI FOR ATTEMPTED COPYING (lol not really tho).");
+      }
+
+      function buttonClick() {
+        window.alert("You clicked the button!");
+      }
+
+      function toggleDisable() {
+        if (myButton.hasAttribute("disabled")) {
+          myButton.removeAttribute("disabled");
+        } else {
+          myButton.setAttribute("disabled", true);
+        }
+      }
+    </script>
   </body>
 </html>
 
