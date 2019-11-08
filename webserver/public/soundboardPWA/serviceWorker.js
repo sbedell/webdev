@@ -3,8 +3,8 @@
  * Taken from: https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/caches
  */ 
 
-var cacheName = 'soundboardPwaCache-v1.2';
-var appFiles = [
+let cacheName = 'soundboardPwaCache-v1.2';
+let appFiles = [
   '/soundboardPWA/',
   '/soundboardPWA/index.html',
   '/soundboardPWA/index.js',
@@ -14,8 +14,7 @@ var appFiles = [
   '/soundboardPWA/icons/music-note256.png'
 ];
 
-// Not using this yet:
-var audioFiles = [
+let audioFiles = [
   '/soundboardPWA/audio/ahahah.mp3',
   '/soundboardPWA/audio/AIRHORN.mp3',
   '/soundboardPWA/audio/damnSon.mp3',
@@ -23,6 +22,7 @@ var audioFiles = [
   '/soundboardPWA/audio/holdontoyourbutts.mp3',
   '/soundboardPWA/audio/multiAirhorn.mp3',
   '/soundboardPWA/audio/nicememe.mp3',
+  '/soundboardPWA/audio/PocketFullOfDubs.mp3',
   '/soundboardPWA/audio/shotsFired.mp3',
   '/soundboardPWA/audio/SMOKEWEEDEVERYDAY.mp3',
   '/soundboardPWA/audio/SometimesThingsGetComplicated.mp3'
@@ -31,9 +31,9 @@ var audioFiles = [
 self.addEventListener('install', function(event) {
   console.log("[ServiceWorker] Installed");
   
-  event.waitUntil(caches.open(cacheName).then(function(cache) {
+  event.waitUntil(caches.open(cacheName).then(cache => {
     console.log("[ServiceWorker] Caching app shell");
-    return cache.addAll(appFiles);
+    return cache.addAll(appFiles.concat(audioFiles));
   }));
 });
 
@@ -42,7 +42,7 @@ self.addEventListener('fetch', function(event) {
   console.log('[Service Worker] Fetching resource ' + event.request.url);
 
   event.respondWith(caches.open(cacheName).then(function(cache) {
-    return fetch(event.request).then(function(response) {
+    return fetch(event.request).then(response => {
       console.log('[Service Worker] Fetching from network');
       cache.put(event.request.url, response.clone());
       return response;
