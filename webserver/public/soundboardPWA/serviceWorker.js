@@ -1,6 +1,9 @@
 /**
  * Implementing Caching for Progressive Web Apps
- * Taken from: https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/caches
+ * 
+ * https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Offline_Service_workers
+ * https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers
+ * https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/caches
  */ 
 
 let cacheName = 'soundboardPwaCache-v1.2';
@@ -28,40 +31,41 @@ let audioFiles = [
   '/soundboardPWA/audio/SometimesThingsGetComplicated.mp3'
 ];
 
-self.addEventListener('install', function(event) {
+self.addEventListener('install', (event) => {
   console.log("[ServiceWorker] Installed");
   
   event.waitUntil(caches.open(cacheName).then(cache => {
-    console.log("[ServiceWorker] Caching app shell");
+    console.log("[ServiceWorker] Caching app shell & audio content.");
     return cache.addAll(appFiles.concat(audioFiles));
   }));
 });
 
 // Network first (and cache response), cache fallback
-self.addEventListener('fetch', function(event) {
-  console.log('[Service Worker] Fetching resource ' + event.request.url);
+self.addEventListener('fetch', (event) => {
+  // console.log("event: ", event);
+  // console.log('[Service Worker] Fetching resource: ', event.request.url);
 
-  event.respondWith(caches.open(cacheName).then(function(cache) {
+  event.respondWith(caches.open(cacheName).then(cache => {
     return fetch(event.request).then(response => {
-      console.log('[Service Worker] Fetching from network');
-      cache.put(event.request.url, response.clone());
+      console.log('[Service Worker] Fetching from network: ', event.request.url);
+      cache.put(event.request, response.clone());
       return response;
-    }).catch(function() {
+    }).catch(() => {
       // return cached content if network fails
-      console.log('[Service Worker] Fetching from cache');
+      console.log('[Service Worker] Fetching from cache: ', event.request.url);
       return cache.match(event.request);
     });
   }));
 });
 
 // Supposed to delete old cache objects
-self.addEventListener('activate', function(event) {
+self.addEventListener('activate', (event) => {
   console.log('[ServiceWorker] Activate');
 
-  event.waitUntil(caches.keys().then(function(keyList) {
-    return Promise.all(keyList.map(function(key) {
+  event.waitUntil(caches.keys().then((keyList) => {
+    return Promise.all(keyList.map((key) => {
       if (cacheName.indexOf(key) === -1) {
-        console.log('[ServiceWorker] Removing old cache', key);
+        console.log('[ServiceWorker] Removing old cache: ', key);
         return caches.delete(key);
       }
     }));
