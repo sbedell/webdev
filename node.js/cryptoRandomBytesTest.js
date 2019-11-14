@@ -1,12 +1,12 @@
 const crypto = require('crypto');
 
 // Asynchronous
-crypto.randomBytes(256, function(err, buf) {
+crypto.randomBytes(256, (err, buf) => {
   if (err) { throw err; }
   console.log(`\n${buf.length} bytes of random data, async: ${buf.toString('hex')}`);
 });
 
-crypto.randomBytes(16, function(err, buf) {
+crypto.randomBytes(16, (err, buf) => {
   if (err) { throw err; }
   console.log(`\n${buf.length} bytes of random data, async: ${buf.toString('hex')}`);
 });

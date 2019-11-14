@@ -4,11 +4,11 @@ function doRequest(options) {
     return new Promise((resolve, reject) => {
         let req = https.request(options);
 
-        req.on('response', function(res) {
+        req.on('response', (res) => {
             resolve(res);
         });
 
-        req.on('error', function(err) {
+        req.on('error', (err) => {
             reject(err);
         });
 
@@ -19,6 +19,7 @@ function doRequest(options) {
 async function makeHTTPCallout(options) {
     try {
         let res = await doRequest(options);
+        console.log("res.statuscode ", res.statuscode);
         console.assert(res.statusCode == 200, "Should return HTTP 200 status code");
         return res;
     } catch(err) {
@@ -29,7 +30,7 @@ async function makeHTTPCallout(options) {
 
 const options = {
     hostname: 'haveibeenpwned.com',
-    port: 443,
+    // port: 443,
     // path: '/api/v2/breachedaccount/' + username.trim(),
     method: 'GET',
     headers: {
