@@ -15,7 +15,7 @@ function makePostRequest(hostname, path, headers, postDataString) {
 
   console.log("Sending POST request to " + options.hostname + options.path);
 
-  let req = https.request(options, function(response) {
+  let req = https.request(options, (response) => {
     console.log("Response headers: ", response.headers);
     
     response.on('data', (chunk) => {
@@ -27,7 +27,7 @@ function makePostRequest(hostname, path, headers, postDataString) {
     });
   }); 
   
-  req.on('error', function(e) {
+  req.on('error', (e) => {
     console.error(`problem with request: ${e.message}`);
   });
   

@@ -8,7 +8,7 @@ if (!process.argv[2]) {
 } else {
     const filename = process.argv[2];
     
-    fs.readFile(filename, {encoding: 'utf-8'}, function(err, data) {
+    fs.readFile(filename, {encoding: 'utf-8'}, (err, data) => {
         if (!err) {
             console.log('received data: \n' + data);
 
