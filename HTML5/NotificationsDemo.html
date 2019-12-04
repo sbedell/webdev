@@ -33,6 +33,7 @@
           // Otherwise, we need to ask the user for permission:
         } else if (Notification.permission !== "denied") {
           Notification.requestPermission().then(permission => {
+            console.log("Permission: ", permission);
             // If the user accepts, let's create a notification
             if (permission === "granted") {
               spawnNotification("Hi there, thank you for granting permissions!", null, "Hello");
