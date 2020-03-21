@@ -1,6 +1,5 @@
 /**
- * MeMe TeXtEr for regular Javascript. 
- * You can paste this into a browser web console to run the function.
+ * MeMe TeXtEr for node.js.
  */
 
 function memeText(text) {
@@ -12,7 +11,7 @@ function memeText(text) {
     
     splitText.forEach(char => {
       if (char.match(/[\w+]/)) {
-        if (counter % 2 !== 0) {
+        if (counter % 2 === 0) {
           newText += char.toUpperCase();
         } else {
           newText += char;
@@ -27,6 +26,13 @@ function memeText(text) {
   return newText;
 }
 
-// "Testing section"
-let sampleText = "hey look...you can also call this a myspace text generator lol";
-console.log(memeText(sampleText));
+// "Main Section"
+if (process.argv[2]) {
+  const userInput = process.argv[2];
+
+  console.log("\n" + memeText(userInput));
+} else {
+  console.error("\n[!] Please input some text");
+  console.error("[!] Expected usage:");
+  console.error("[!] 'node MeMeTeXtEr.js someText'");
+}
