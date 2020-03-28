@@ -17,6 +17,7 @@ if (process.argv[2]) {
 function textGen1788L(text) {
   let inputText = String(text);
   let text1788L = inputText.toUpperCase().split("").join(" ");
+  text1788L = text1788L.split("  ").join(" //");
 
   return text1788L;
 }
