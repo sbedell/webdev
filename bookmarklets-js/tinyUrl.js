@@ -1,0 +1,1 @@
+javascript:document.location="https://tinyurl.com/create.php?url="+document.location.href;
