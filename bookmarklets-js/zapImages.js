@@ -4,10 +4,10 @@
 // Full function v1 pretty printed:
 (function() {
   function toArray(c) {
-      var a, k;
-      a = new Array;
-      for (k = 0; k < c.length; ++k) a[k] = c[k];
-      return a;
+    var a, k;
+    a = new Array;
+    for (k = 0; k < c.length; ++k) a[k] = c[k];
+    return a;
   }
   var images, img, altText;
   images = toArray(document.images);
@@ -18,13 +18,13 @@
   }
 })();
 
-// v2, kinda buggy?
-// javascript:(function(){%20%20%20for%20(var%20i%20in%20document.getElementsByTagName('img'))%20{%20%20%20var%20img=document.getElementsByTagName('img')[i];%20%20%20%20%20var%20altText%20=%20document.createTextNode(img.alt);%20%20%20%20%20img.parentNode.replaceChild(altText,img);%20%20%20}%20})();
-
-// Full function pretty print of v2:
+// Full function v2, this def works:
 (function() {
-  for (let img in document.getElementsByTagName('img')) {
-    var altText = document.createTextNode(img.alt) || "";
-    img.parentNode.replaceChild(altText, img);
-  }
+  document.querySelectorAll('img').forEach(image => {
+    let altText = document.createTextNode(image.alt);
+    image.parentNode.replaceChild(altText, image);
+  });
 })();
+
+// So this one liner should work:
+// (function(){document.querySelectorAll('img').forEach(image => {let altText=document.createTextNode(image.alt);image.parentNode.replaceChild(altText,image);});})();
