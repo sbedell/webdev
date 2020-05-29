@@ -2,7 +2,7 @@
 
 (function() {
     let textNode;
-    // "root" = document; "whatToShow" = Text
+    // ("root" = document, "whatToShow" = Text)
     let walk = document.createTreeWalker(document, NodeFilter.SHOW_TEXT);
 
     while (textNode = walk.nextNode()) {
@@ -10,14 +10,10 @@
     }
 })();
 
-/* minified version:
-let textNode,walk=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);while(textNode=walk.nextNode()){textNode.nodeValue=textNode.nodeValue.replace(/Donald Trump/g,"Donald Drumpf");}
-*/
+// One Liner IEFE bookmarklet:
+(function(){let textNode,walk=document.createTreeWalker(document,NodeFilter.SHOW_TEXT);while(textNode=walk.nextNode()){textNode.nodeValue=textNode.nodeValue.replace(/Trump/g,"Drumpf");}})();
 
-/* innerHTML version:
-document.body.innerHTML=document.body.innerHTML.replace(/Donald Trump/g, 'Donald Drumpf');
-*/
-
-// one liner iefe versions:
+// one liner IEFE innerHTML version:
+// This messes up images if they contain the word "Trump" lol. I think that's why the TreeWalker thing is better. 
 (function(){document.body.innerHTML=document.body.innerHTML.replace(/Trump/g, 'Drumpf');document.title=document.title.replace(/Trump/g, 'Drumpf');
 })();
