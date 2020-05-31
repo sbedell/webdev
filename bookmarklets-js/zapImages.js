@@ -11,7 +11,7 @@
 })();
 
 // One liner from above, this works:
-// (function(){document.querySelectorAll('img').forEach(image => {let altText=document.createTextNode(image.alt);image.parentNode.replaceChild(altText,image);});})();
+(function(){document.querySelectorAll('img').forEach(image => {let altText=document.createTextNode(image.alt);image.parentNode.replaceChild(altText,image);});})();
 
 
 // Old / original version, works well, replaces images with their alt text:
