@@ -1,3 +1,7 @@
+/*
+* My userChrome.css file for Firefox - Steve. 
+*/
+
 /* Remove Back and forward buttons when there's nothing to go Back to  */
 #back-button[disabled="true"], 
 #forward-button[disabled="true"]
@@ -15,6 +19,17 @@
 #context-viewbgimage[disabled="true"] 
 { 
     display: none; 
+}
+
+/* Remove the send page to device menu */
+#context-sendpagetodevice,
+#context-sep-sendpagetodevice,
+#context-sendlinktodevice, 
+#context-sep-sendlinktodevice,
+#context_sendTabToDevice,
+#context_sendTabToDevice_separator 
+{
+    display: none !important;
 }
 
 /* Apply styles to the selected tab */
