@@ -12,8 +12,6 @@
   "editor.suggest.maxVisibleSuggestions": 4,
 
   "explorer.openEditors.visible": 0,
-  
-  "python.linting.pylintEnabled": false,
 
   "git.autofetch": false,
   "files.exclude": {
@@ -25,7 +23,6 @@
                               // only from the root of
                               // your workspace 
   },
-  "solidity.linter": "null",
   "telemetry.enableTelemetry": false,
   "terminal.integrated.rightClickBehavior": "default",
   "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
