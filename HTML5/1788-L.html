@@ -34,7 +34,10 @@
       input.addEventListener("keyup", textGen1788L);
   
       function textGen1788L(e) {
+        console.log(e);
+        const input = document.querySelector('input');
         let inputText = String(input.value);
+        inputText = inputText.replaceAll(" ", "/");
         let text1788L = inputText.toUpperCase().split("").join(" ");
         
         log.textContent = text1788L;
