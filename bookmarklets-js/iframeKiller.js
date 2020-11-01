@@ -7,14 +7,15 @@
 
 // My edit: ( Changed element.parentNode.removeChild(element) to element.remove() and removed the setInterval )
 //javascript:
-(function(){document.querySelectorAll('iframe').forEach(element => {console.log('Iframe Killer - Removing Element:', element);element.remove()})})();
+(function(){document.querySelectorAll('iframe').forEach(element =>{console.log('Iframe Killer - Removing Element:', element);element.remove()})})();
 
-// Readable function (why even set an interval? for recurring iframes? how common is that?)
+// Readable function:
 function iframeKiller() {
-  //setInterval(function() {
+  let count = 0;
   document.querySelectorAll('iframe').forEach(element => {
     console.log('Iframe Killer - Removing Element:', element);
     element.remove();
+    count++;
   });
-  // }, 100);
+  console.log(`Iframe Killer: Removed ${count} iframes from the page.`);
 }
