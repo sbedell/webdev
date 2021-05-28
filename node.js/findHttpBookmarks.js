@@ -3,20 +3,23 @@
  *        that are http:// only and not https://
  * 
  * Now adding some functionality to check if any bookmarks are 404ing
+ * 
+ * Note - new js stuff added - String replaceAll and new conditional = ?. could make checking stuff easier
  */
 
 const fs = require('fs');
 const https = require("https");
 
-const bookmarksFilename = "../../../../Downloads/bookmarks-2019-12-22.json";
+const bookmarksFilename = "../../../../Downloads/bookmarks-2021-05-28.json";
 
 fs.readFile(bookmarksFilename, (err, data) => {
   if (!err) {
     let bookmarksBackup = JSON.parse(data);
+    // console.log(bookmarksBackup);
+    //return;
 
     // children[0] is the Bookmarks Menu folder
-    // the children of that seems to be each folder
-
+    // the children of that seems to be each folder.
     let bookmarksFolders = bookmarksBackup.children[0].children;
     
     // Printing in CSV file output, > pipe it to a csv file in the command line
@@ -28,7 +31,7 @@ fs.readFile(bookmarksFilename, (err, data) => {
       let bookmarks = bookmarksFolder.children;
       if (bookmarks) {
         bookmarks.forEach(bookmark => {
-          checkHTTP(bookmark, bookmarksFolder);
+          checkErrorBookmarks(bookmark, bookmarksFolder);
         });
       }
     });
@@ -39,7 +42,7 @@ fs.readFile(bookmarksFilename, (err, data) => {
 
 function checkHttpsBookmark(httpsURL, urlTitle="", folderName="") {
   if (httpsURL.match(/^https:\/\//)) {
-    https.get(httpsURL, (response) => { 
+    https.get(httpsURL, response => { 
       if (response.statusCode !== 200) {
         console.log(`${httpsURL},${urlTitle.replace(/,/g, " ")},${folderName},${response.statusCode}`);
       }
@@ -72,12 +75,12 @@ function checkHTTP(bookmark, bookmarksFolder) {
 
 // function readBookmarksFile(bookmarksFile) { }
 
-function check404(bookmarks, bookmarksFolder) { 
+function checkErrorBookmarks(bookmark, bookmarksFolder) { 
   // Checking for subfolders:
   if (bookmark.children) {
-    bookmark.children.forEach(extraBookmark => {
-      if (extraBookmark.uri.match(/https:\/\//)) {
-        checkHttpsBookmark(extraBookmark.uri, extraBookmark.title, bookmark.title);
+    bookmark.children.forEach(bookmarkChild => {
+      if (bookmarkChild.uri && bookmarkChild.uri.match(/https:\/\//)) {
+        checkHttpsBookmark(bookmarkChild.uri, bookmarkChild.title, bookmark.title);
       }
     });
   } else {
