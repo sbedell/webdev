@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html>
+  <head lang="en">
+    <title>Testing OnLoad Functions</title>
+    
+    <meta charset="utf-8">
+	  <meta name="description" content="Testing window.onload, DOMContentLoaded, and jQuery document ready">
+	  <meta name="keywords" content="Comma, separated, keywords">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+
+  <body>
+    <p>Alright we're gonna be testing window.onload, DOMContentLoaded, and then jQuery $(document).ready functions.</p>
+    <p>Dummy paragraph, adding more elements to load:</p>
+    <input type="file">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" 
+      integrity="sha384-vk5WoKIaW/vJyUAd9n/wmopsmNhiy+L2Z+SBxGYnUkunIxVxAv/UtMOhba/xskxh" 
+      crossorigin="anonymous">
+    </script>
+
+    <script>
+      $(document).ready(() => {
+        console.log(`${getTime()}: jQuery Document.ready fired!`);
+      });
+
+      window.addEventListener('load', event => {
+        console.log(`${getTime()}: window.load, page fully loaded. Event: `, event);
+      });
+
+      document.addEventListener('DOMContentLoaded', event => {
+        console.log(`${getTime()}: DOMContentLoaded, DOM fully loaded and parsed. Event: `, event);
+      });
+
+      function getTime() {
+        let date = new Date();
+        return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}.${date.getMilliseconds()}`;
+      }
+    </script>
+  </body>
+</html>
