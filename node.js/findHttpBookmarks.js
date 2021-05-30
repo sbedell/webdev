@@ -2,15 +2,13 @@
  * Goal - read my bookmarks json backup file and find all bookmarks 
  *        that are http:// only and not https://
  * 
- * Now adding some functionality to check if any bookmarks are 404ing
- * 
- * Note - new js stuff added - String replaceAll and new conditional = ?. could make checking stuff easier
+ * Now adding some functionality to check if any bookmarks are not returning HTTP 200.
  */
 
 const fs = require('fs');
 const https = require("https");
 
-const bookmarksFilename = "../../../../Downloads/bookmarks-2021-05-28.json";
+const bookmarksFilename = "../../../Downloads/bookmarks-2021-05-30.json";
 
 fs.readFile(bookmarksFilename, (err, data) => {
   if (!err) {
@@ -23,7 +21,7 @@ fs.readFile(bookmarksFilename, (err, data) => {
     let bookmarksFolders = bookmarksBackup.children[0].children;
     
     // Printing in CSV file output, > pipe it to a csv file in the command line
-    console.log("URL,Title,Folder");
+    console.log("URL,Title,Folder,HTTP-Status-Code");
 
     bookmarksFolders.forEach(bookmarksFolder => {
       // "bookmarksFolder.title" is the folder name that the bookmarks are in
@@ -44,14 +42,15 @@ function checkHttpsBookmark(httpsURL, urlTitle="", folderName="") {
   if (httpsURL.match(/^https:\/\//)) {
     https.get(httpsURL, response => { 
       if (response.statusCode !== 200) {
-        console.log(`${httpsURL},${urlTitle.replace(/,/g, " ")},${folderName},${response.statusCode}`);
+        console.log(`${httpsURL.substr(0,100)},${urlTitle.replace(/,/g, " ").substr(0,80)},${folderName},${response.statusCode}`);
       }
     }).on('error', e => {
-      console.log(`Error checking ${httpsURL},${urlTitle.replace(/,/g, " ")},${folderName},${e}`);
+      console.log(`Error checking ${httpsURL.substr(0,100)},${urlTitle.replace(/,/g, " ").substr(0,80)},${folderName},${e}`);
     });
-  } else {
-    console.log(`Skipping - ${httpsURL},${urlTitle.replace(/,/g, " ")},${folderName},...`);
   }
+  // else {
+  //   console.log(`Skipping - ${httpsURL},${urlTitle.replace(/,/g, " ")},${folderName}`);
+  // }
 }
 
 function checkHTTP(bookmark, bookmarksFolder) {
