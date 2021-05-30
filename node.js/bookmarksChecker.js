@@ -1,8 +1,8 @@
 /**
- * Goal - read my bookmarks json backup file and find all bookmarks 
- *        that are http:// only and not https://
+ * Read Firefox bookmarks json backup file and find all bookmarks 
+ * that are http:// only and not https://
  * 
- * Now adding some functionality to check if any bookmarks are not returning HTTP 200.
+ * Now adding functionality to check if any bookmarks are not returning HTTP 200.
  */
 
 const fs = require('fs');
