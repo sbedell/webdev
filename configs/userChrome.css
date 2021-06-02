@@ -32,19 +32,19 @@
     display: none !important;
 }
 
+/* Change Tab styles */
+.tabbrowser-tab {
+   /* font-family: sans-serif; */
+   border-right: 1px dotted black !important;
+   padding-inline: 1px !important;
+   min-height: 20px;
+}
+
 /* Apply styles to the selected tab */
 .tabbrowser-tab[selected="true"] .tab-text { 
 	font-weight: bold;
 }
 
-/* Change Tab styles */
-/* .tabbrowser-tab {
-    font-family: sans-serif;
+.tabbrowser-tab .tab-close-button {
+  display: none !important;
 }
-*/
-
-/*
-#urlbar  {
-   font-family: "Lucida Sans", "Lucida Console", "Lucida Sans Typewriter", monospace !important;
-} 
-*/
