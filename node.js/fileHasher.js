@@ -9,23 +9,19 @@
 const crypto = require('crypto');
 const fs = require('fs');
 
-// console.log(process.argv)
+// function getFileHash() {}
+// function checkChecksum() {}
 
+// console.log(process.argv);
 if (process.argv[2]) {
   const filename = process.argv[2];
   const input = fs.createReadStream(filename);
   let hash = crypto.createHash('sha256'); // defaulting to sha256. 
-  // console.log(hash);
 
-  if (process.argv[3]) {
-    if (process.argv[3] === "md5") { 
-      hash = crypto.createHash("md5");
-    } else if (process.argv[3] === "sha1") {
-      hash = crypto.createHash("sha1")
-    } else if (process.argv[3] === "sha256") {
-      // kinda redundant and could remove this?
-      hash = crypto.createHash("sha256")
-    }
+  if (process.argv[3] && process.argv[3] === "md5") { 
+    hash = crypto.createHash("md5");
+  } else if (process.argv[3] && process.argv[3] === "sha1") {
+    hash = crypto.createHash("sha1");
   }
 
   input.on('readable', () => {
@@ -46,6 +42,6 @@ if (process.argv[2]) {
     }
   });
 } else {
-  console.error("\n[*] Error: Please input a filename.");
+  console.error("\n[!] Error: Please input a filename.");
   console.error("Expected usage:\n`node fileHasher.js somefilename`");
-} 
+}

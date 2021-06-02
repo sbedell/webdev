@@ -1,7 +1,7 @@
 const crypto = require('crypto');
 const fs = require('fs');
 
-if (process.argv[2] ) {
+if (process.argv[2]) {
   const filename = process.argv[2];
   const input = fs.createReadStream(filename);
   let hash = crypto.createHash('md5');
