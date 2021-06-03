@@ -1,6 +1,6 @@
 /**
  * Calls out to Troy Hunt's Have I Been Pwned APIs
- * https://haveibeenpwned.com/
+ * https://haveibeenpwned.com/API/v3
  *  
  * Checks a password against Troy Hunt's haveibeenpwned service.
  * This can check plain text passwords and SHA1 hashes of passwords.
@@ -8,41 +8,23 @@
  * https://haveibeenpwned.com/Passwords
  * https://www.troyhunt.com/introducing-306-million-freely-downloadable-pwned-passwords/
  * https://www.troyhunt.com/ive-just-launched-pwned-passwords-version-2/
+ * https://www.troyhunt.com/authentication-and-the-have-i-been-pwned-api/
  */
 
 const https = require('https');
 const crypto = require('crypto');
 
-function hasUserNameBeenPwned(username) {
-  const options = {
-    hostname: 'haveibeenpwned.com',
-    path: '/api/v2/breachedaccount/' + username.trim(),
-    method: 'GET',
-    headers: {
-      'User-Agent': 'Pwnage-Checker-nodejs'
-    }
-  };
+// ---------------- Main --------------------------
 
-  const myRequest = https.request(options, (response) => {
-    if (response.statusCode == 404) {
-      console.log("Congrats - this username hasn't been found in the username breach db!");
-    } else {
-      let str = '';
-      response.on('data', (chunk) => {
-        str += chunk;
-      });
-
-      response.on('end', () => {
-        console.log(str);
-      });
-    }
-  });
-
-  myRequest.on('error', (e) => {
-    console.error(e);
-  });
-
-  myRequest.end();
+if (process.argv[2] && process.argv[2] === "-p") {
+  let yourPassword = process.argv[3].trim();
+  hasPasswordBeenPwned(yourPassword);
+} else if (process.argv[2] && process.argv[2] === "-u") {
+  let yourUsername = process.argv[3].trim();
+  hasUserNameBeenPwned(yourUsername);
+} else {
+  console.error("[!] Error: Please specify a username or password to check.");
+  console.error("[!] node troy-hunt-password-checker.js, -p or -u, password or username");
 }
 
 /**
@@ -60,14 +42,14 @@ function hasPasswordBeenPwned(yourPassword) {
     hostname: 'api.pwnedpasswords.com',
     path: '/range/' + sha1hashedPasswordDigest.slice(0,5),
     headers: {
-      'User-Agent': 'Pwnage-Checker-nodejs'
+      'User-Agent': 'Pwnage-Checker-nodejs',
+      'Add-Padding': true
     }
   };
   
   console.log("Querying " + options.hostname + options.path); // INFO
 
-  let req = https.get(options, (response) => {
-    // console.log(response.headers);
+  https.get(options, (response) => {
     if (response.statusCode == 200) {
       let str = '';
       response.on('data', (chunk) => {
@@ -99,26 +81,39 @@ function hasPasswordBeenPwned(yourPassword) {
           `);
         }
       });
-    } else if (response.statusCode == 429) {
-      console.log('Status Code: ' + response.statusCode);
-      console.log("Rate limited :(");
     } else {
       console.log('Status Code: ' + response.statusCode);
+      if (response.statusCode == 429) { console.log("Rate limited :("); }
     }
-  }); 
-
-  req.on('error', (e) => {
+  }).on('error', e => {
     console.error(e);
   });
-
-  req.end();
 }
 
-// starting "main":
+function hasUserNameBeenPwned(username) {
+  const options = {
+    hostname: 'haveibeenpwned.com',
+    path: '/api/v3/breachedaccount/' + username.trim(),
+    headers: {
+      'User-Agent': 'Pwnage-Checker-nodejs',
+      "hibp-api-key": "testtesttest12345" // lol this obv doesn't work
+    }
+  };
 
-//console.log(process.argv);
+  https.get(options, (response) => {
+    if (response.statusCode == 404) {
+      console.log("Congrats - this username hasn't been found in the username breach db!");
+    } else {
+      let str = '';
+      response.on('data', (chunk) => {
+        str += chunk;
+      });
 
-if (process.argv[2]) {
-  let yourPassword = process.argv[2].trim();
-  hasPasswordBeenPwned(yourPassword);
+      response.on('end', () => {
+        console.log(str);
+      });
+    }
+  }).on('error', e => {
+    console.error(e);
+  });
 }
