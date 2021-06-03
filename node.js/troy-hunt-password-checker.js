@@ -16,7 +16,6 @@ const crypto = require('crypto');
 function hasUserNameBeenPwned(username) {
   const options = {
     hostname: 'haveibeenpwned.com',
-    port: 443,
     path: '/api/v2/breachedaccount/' + username.trim(),
     method: 'GET',
     headers: {
@@ -59,9 +58,7 @@ function hasPasswordBeenPwned(yourPassword) {
 
   const options = {
     hostname: 'api.pwnedpasswords.com',
-    port: 443,
     path: '/range/' + sha1hashedPasswordDigest.slice(0,5),
-    method: 'GET',
     headers: {
       'User-Agent': 'Pwnage-Checker-nodejs'
     }
@@ -69,7 +66,7 @@ function hasPasswordBeenPwned(yourPassword) {
   
   console.log("Querying " + options.hostname + options.path); // INFO
 
-  let req = https.request(options, (response) => {
+  let req = https.get(options, (response) => {
     // console.log(response.headers);
     if (response.statusCode == 200) {
       let str = '';
