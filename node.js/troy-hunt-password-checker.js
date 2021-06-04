@@ -8,6 +8,7 @@
  * https://haveibeenpwned.com/Passwords
  * https://www.troyhunt.com/introducing-306-million-freely-downloadable-pwned-passwords/
  * https://www.troyhunt.com/ive-just-launched-pwned-passwords-version-2/
+ * https://blog.cloudflare.com/validating-leaked-passwords-with-k-anonymity/
  * https://www.troyhunt.com/authentication-and-the-have-i-been-pwned-api/
  */
 
@@ -64,7 +65,7 @@ function hasPasswordBeenPwned(yourPassword) {
           
           if (sha1hashedPasswordDigest.slice(5).toUpperCase() == line.slice(0, line.indexOf(":"))) {
             // console.log("[!!] we have a match!!\n"); // DEBUG
-            count = Number.parseInt(line.slice(line.indexOf(":") + 1));
+            count = Number(line.slice(line.indexOf(":") + 1));
             // TODO - Check if count is 0, that's just padding then, throw it out. Although that would be a SHA1 hash collision...
             match = true;
           }

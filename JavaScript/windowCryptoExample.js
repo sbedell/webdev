@@ -36,3 +36,25 @@ function generateRSAKey() {
     console.log("keyPair.privateKey: ", keyPair.privateKey);
   });
 }
+
+async function sha1HashAsync(userInput) {
+  if (window.isSecureContext) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(userInput);
+    const hash = await crypto.subtle.digest('SHA-1', data);
+    return hash;
+  }
+}
+
+function sha1Hash(userInput) {
+  if (window.isSecureContext) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(userInput);
+    crypto.subtle.digest('SHA-1', data).then(hashBuffer => {
+      // Convert to hex digest:
+      const hashArray = Array.from(new Uint8Array(hashBuffer));                     // convert buffer to byte array
+      const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join(''); // convert bytes to hex string
+      console.log(`SHA-1 hex digest of ${userInput}:\n${hashHex}`);
+    });
+  }
+}
