@@ -16,10 +16,10 @@ const crypto = require('crypto');
 
 // ---------------- Main --------------------------
 
-if (process.argv[2] && process.argv[2] === "-p") {
+if (process.argv[2] && process.argv[2] === "-p" && process.argv[3]) {
   let yourPassword = process.argv[3].trim();
   hasPasswordBeenPwned(yourPassword);
-} else if (process.argv[2] && process.argv[2] === "-u") {
+} else if (process.argv[2] && process.argv[2] === "-u" && process.argv[3]) {
   let yourUsername = process.argv[3].trim();
   hasUserNameBeenPwned(yourUsername);
 } else {
@@ -29,7 +29,6 @@ if (process.argv[2] && process.argv[2] === "-p") {
 
 /**
  * hasPasswordBeenPwned - Checks your password on Troy Hunt's password checker
- * Updated - 
  * @param {string} yourPassword - password string that you want to check
  */
 function hasPasswordBeenPwned(yourPassword) {
@@ -66,6 +65,7 @@ function hasPasswordBeenPwned(yourPassword) {
           if (sha1hashedPasswordDigest.slice(5).toUpperCase() == line.slice(0, line.indexOf(":"))) {
             // console.log("[!!] we have a match!!\n"); // DEBUG
             count = Number.parseInt(line.slice(line.indexOf(":") + 1));
+            // TODO - Check if count is 0, that's just padding then, throw it out. Although that would be a SHA1 hash collision...
             match = true;
           }
         });

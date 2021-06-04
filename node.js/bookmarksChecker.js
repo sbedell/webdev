@@ -69,7 +69,7 @@ if (process.argv[2]) {
     } else if (err && err.code === "ENOENT") {
       console.error(`[!] Error: file not found.`);
     } else {
-    console.error(err);
+      console.error(err);
     }
   });
 } else {
