@@ -1,6 +1,7 @@
 /**
  * https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API
  * https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/generateKey
+ * https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest
  * https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues
  */
 
@@ -39,10 +40,17 @@ function generateRSAKey() {
 
 async function sha1HashAsync(userInput) {
   if (window.isSecureContext) {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(userInput);
-    const hash = await crypto.subtle.digest('SHA-1', data);
-    return hash;
+    // encode as (utf-8) Uint8Array, then hash it.
+    const msgUint8 = new TextEncoder().encode(userInput);
+    const hashBuffer = await crypto.subtle.digest("SHA-1", msgUint8);
+
+    // Convert buffer to byte array
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    // console.log("hashArray: ", hashArray);
+
+    // Convert bytes to hex string: (toString(16) is using radix 16)
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    return hashHex;
   }
 }
 

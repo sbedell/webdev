@@ -1,9 +1,9 @@
-// Get today's date
-let today = new Date();
+function get90DaysAgo() {
+  // get current date
+  let date = new Date();
+  date.setDate(date.getDate() - 90);
 
-// 90 days ago:
-let oldDate = new Date();
-oldDate.setDate(today.getDate() - 90);
-console.log("90 days ago was: ", oldDate);
-console.log("90 days ago was (formatted): ", oldDate.toDateString());
-console.log("90 days ago was (other format): ", oldDate.toLocaleString());
+  console.log("90 days ago was: ", date);
+  console.log("90 days ago was (formatted): ", date.toDateString());
+  console.log("90 days ago was (other format): ", date.toLocaleString());
+}
