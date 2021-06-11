@@ -11,12 +11,10 @@ let uint32Arr = new Uint32Array(10);
 getCryptoRandomValues(uint32Arr);
 
 function getCryptoRandomValues(typedArray) {
-  if (!window.isSecureContext) { console.error("Not secure context!"); }
-
   if (window.crypto) {
     // window.crypto.getRandomValues modifies the array itself, returns nothing.
     window.crypto.getRandomValues(typedArray);
-    console.log(typedArray);
+    return typedArray;
   } else {
     console.error("window.crypto not supported");
   }
