@@ -5,16 +5,23 @@
  */
 
 function basicFetch(url) {
-  fetch(url)
-    // res.json or res.text are useful here:
-    .then(res => res.json())
-    .then(response => {
-      console.log("response: ", response);
-    }).catch(error => {
-      console.error("[!] Error: ", error);
-    }).finally(() => {
-      // anything you want to run after the fetch is done. 
-    });
+  fetch(url).then(res => {
+    if (res.ok) {
+      // rest.text() is useful here too depending on what the response is.
+      return res.json();
+    } else {
+      return Promise.reject({
+        status: response.status,
+        statusText: response.statusText
+      });
+    }
+  }).then(response => {
+    console.log("Response: ", response);
+  }).catch(error => {
+    console.error("[!] Error: ", error);
+  }).finally(() => {
+    // anything you want to run after the fetch is done. 
+  });
 }
 
 // Demo Headers for Troy Hunt's Pwned Passwords demo
@@ -22,7 +29,7 @@ function fetchWithHeaders(url = "") {
   const options = {
     method: "GET",
     headers: {
-      'Add-Padding': true
+      'User-Agent': "Javascript Fetch API"
     }
   }
   fetch(url, options)
