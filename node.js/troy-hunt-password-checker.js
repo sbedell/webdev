@@ -69,7 +69,7 @@ function hasPasswordBeenPwned(yourPassword) {
         str.split("\n").forEach(line => {
           // console.log(line.slice(0, line.indexOf(":"))); // DEBUG
           
-          if (sha1hashedPasswordDigest.slice(5).toUpperCase() == line.slice(0, line.indexOf(":"))) {
+          if (sha1hashedPasswordDigest.slice(5).toUpperCase() === line.slice(0, line.indexOf(":"))) {
             // console.log("[!!] we have a match!!\n"); // DEBUG
             count = Number(line.slice(line.indexOf(":") + 1));
             if (count === 0) { console.error("[!] Likely SHA-1 hash collision!!!"); }
@@ -84,8 +84,7 @@ function hasPasswordBeenPwned(yourPassword) {
         } else {
           console.log(`\nGood news — no pwnage found.
           This password wasn't found in any of the Pwned Passwords loaded into Have I been pwned. That doesn't necessarily mean it's a good password, merely that it's not indexed on this site.
-          - Troy Hunt
-          `);
+          - Troy Hunt`);
         }
       });
     } else {

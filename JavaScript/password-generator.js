@@ -23,7 +23,7 @@ function pickCharsFromString(inputStr, numChars = 0) {
  * @param {String} inputStr - String to shuffle / randomize.
  * @return {String} - shuffled string.
 */
- function shuffleString(inputStr) {
+function shuffleString(inputStr) {
   if (!inputStr) { return ""; }
   
   let splitString = inputStr.split("");

@@ -28,8 +28,8 @@ A bunch of Javascript and general web development tutorials I've done.
 ## web-components
 Demo code for Web Components
 - https://developer.mozilla.org/en-US/docs/Web/Web_Components
-- Polymer 3: https://polymer-library.polymer-project.org/3.0/docs/first-element/intro
 - Lit Element: https://lit-element.polymer-project.org/guide/start
+- https://lit.dev/
 
 ## webserver
 A basic node.js server running Express and [Helmet](https://github.com/helmetjs/helmet).
