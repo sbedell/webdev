@@ -21,23 +21,25 @@ function getCryptoRandomValues(typedArray) {
 }
 
 function generateRSAKey() {
-  window.crypto.subtle.generateKey(
-    {
-      name: "RSA-OAEP",
-      modulusLength: 4096,
-      publicExponent: new Uint8Array([1, 0, 1]),
-      hash: "SHA-256"
-    },
-    true,                   // boolean whether or not to make the keys extractable / exportable
-    ["encrypt", "decrypt"]   // key usages
-  ).then(keyPair => {
-    console.log("keyPair.publicKey: ", keyPair.publicKey);
-    console.log("keyPair.privateKey: ", keyPair.privateKey);
-  });
+  if (window.isSecureContext && window.crypto) {
+    window.crypto.subtle.generateKey(
+      {
+        name: "RSA-OAEP",
+        modulusLength: 4096,
+        publicExponent: new Uint8Array([1, 0, 1]),
+        hash: "SHA-256"
+      },
+      true,                   // boolean whether or not to make the keys extractable / exportable
+      ["encrypt", "decrypt"]   // key usages
+    ).then(keyPair => {
+      console.log("keyPair.publicKey: ", keyPair.publicKey);
+      console.log("keyPair.privateKey: ", keyPair.privateKey);
+    });
+  }
 }
 
 async function sha1HashAsync(userInput) {
-  if (window.isSecureContext) {
+  if (window.isSecureContext && window.crypto) {
     // encode as (utf-8) Uint8Array, then hash it.
     const msgUint8 = new TextEncoder().encode(userInput);
     const hashBuffer = await crypto.subtle.digest("SHA-1", msgUint8);
@@ -53,7 +55,7 @@ async function sha1HashAsync(userInput) {
 }
 
 function sha1Hash(userInput) {
-  if (window.isSecureContext) {
+  if (window.isSecureContext && window.crypto) {
     const encoder = new TextEncoder();
     const data = encoder.encode(userInput);
     crypto.subtle.digest('SHA-1', data).then(hashBuffer => {

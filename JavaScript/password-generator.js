@@ -63,4 +63,32 @@ function generateRandomPassword(length = 12) {
   return shuffleString(password);
 }
 
-console.log(generateRandomPassword(15));
+
+// --------------- Some "tests": ------------------
+let testString = "thisteststring";
+let pickChars = pickCharsFromString(testString, 30);
+let shuffledString = shuffleString(testString);
+// console.log(shuffledString);
+
+// Test length is what I picked above, 30
+console.assert(pickChars.length === 30); 
+
+// Test that each char is in fact from the initial string
+pickChars.split("").forEach(char => {
+  console.assert(testString.includes(char));
+});
+
+// Test that the shuffled string function works correctly:
+console.assert(shuffledString.length === testString.length);
+
+// Test that the shuffled string is in fact different then the test string.
+console.assert(shuffledString !== testString);
+
+// Test to make sure all the chars are from the initial string.
+shuffledString.split("").forEach(char => {
+  console.assert(testString.includes(char));
+});
+
+let password = generateRandomPassword(15);
+console.assert(password.length === 15, "password length not 15");
+console.log(password);
