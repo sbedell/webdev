@@ -11,7 +11,8 @@
     <h1>Notifications API Demo</h1>
     <button id="notify-btn">Notify me!</button>
     <br>
-    <p>Learn about this code on MDN: <a target="blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/notification">https://developer.mozilla.org/en-US/docs/Web/API/notification</a></p>
+    <p>Learn about this code on MDN: <a target="blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/notification">developer.mozilla.org/en-US/docs/Web/API/notification</a>.</p>
+    <p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API">Using the Notifications API - MDN</a>.</p>
   
     <script>
       Notification.requestPermission().then(result => {
@@ -28,7 +29,7 @@
           // Next, let's check whether notification permissions have already been granted:
         } else if (Notification.permission === "granted") {
           // If it's okay let's create a notification:
-          spawnNotification("Fuck Donald Trump!", "https://sbedell.github.io/favicon.ico", "Test Notification");
+          spawnNotification("Demo Browser Notification!", "https://sbedell.github.io/favicon.ico", "Test Notification");
 
           // Otherwise, we need to ask the user for permission:
         } else if (Notification.permission !== "denied") {
@@ -40,23 +41,16 @@
             }
           });
         }
-        // At last, if the user has denied notifications, and you 
-        // want to be respectful there is no need to bother them any more.
       }
 
       // Generic function for spawning a notification
       function spawnNotification(body, icon, title) {
-        let options = {
-          body: body,
-          icon: icon
-        };
-
         // Sets a delay in opening the Notification too:
         // setTimeout(function() {
         //   let newNote = new Notification(title, options);
         // }, 4000);
         
-        let newNote = new Notification(title, options);
+        let newNote = new Notification(title, { body: body, icon: icon });
 
         // Automatically close the notifications after 5 seconds:
         setTimeout(newNote.close.bind(newNote), 5000);

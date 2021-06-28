@@ -5,8 +5,7 @@
     <title>HTML Custom Elements Demo</title>
     
     <meta charset="utf-8">
-    <!-- <meta name="author" content="Author Name"> -->
-	  <meta name="description" content="Description goes here">
+	  <meta name="description" content="HTML5 Web Components demo - code via Mozilla and myself.">
 	  <meta name="keywords" content="HTML, Custom Elements, Shadow DOM">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -21,21 +20,22 @@
   <body>
     <h1>HTML Web Components Demo</h1>
     <p>Custom Elements, Shadow DOM, HTML Templates</p>
-    <p>Code inspired by <a href="https://hacks.mozilla.org/2018/11/the-power-of-web-components/">this tutorial page from Mozilla</a></p>
+    <p>Code inspired by <a href="https://hacks.mozilla.org/2018/11/the-power-of-web-components/">this tutorial page from Mozilla</a>.</p>
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements">Using Custom Elements - MDN</a></p>
     <hr>
 
     <template id="template-1">
       <h2>Demo Template</h2>
       <h5>This won't display at first!</h5>
-      <script>console.log("this won't alert!");</script>
     </template>
 
     <!-- <hey-there>Greeting - click me</hey-there><br>
     <hey-there name="Steve">Personalized Greeting - click me</hey-there> <br> -->
     <button is="hey-there" name="World">Howdy</button> <br>
 
-    <fancy-button>Hello</fancy-button> 
-    <!-- <fancy-button icon="/refresh.svg">refresh</fancy-button> -->
+    <fancy-button>Fancy Alert Button</fancy-button>
+
+    <!-- <fancy-button icon="https://sbedell.github.io/favicon.ico">Test Icon</fancy-button> -->
     
     <template id="template-2">
       <style>
@@ -50,17 +50,21 @@
           font-size: .8em;
           height: 2.5em;
           justify-content: center;
+          margin: 10px auto;
           padding: 0 2em;
           vertical-align: middle;
         }
+
         :host(:hover) {
           box-shadow: 2px 2px 0 currentColor;
           text-decoration: underline;
         }
+
         :host(:active) {
           box-shadow: none;
           transform: translate(2px, 2px);
         }
+
         img {
           display: none;
           height: 1em;
@@ -75,9 +79,7 @@
       let template1 = document.getElementById('template-1');
       document.body.appendChild(template1.content.cloneNode(true));
 
-      // class MyElement extends HTMLElement {}
-      // customElements.define('my-element', MyElement);
-
+      // ------------ "Hey-There" element ---------
       class GreetingElement extends HTMLButtonElement {
         constructor() {
           super();
@@ -90,21 +92,17 @@
 
         attributeChangedCallback(attrName, oldValue, newValue) {
           if (attrName === 'name') {
-            if (newValue) {
-              this._name = newValue;
-            } else {
-              this._name = 'Stranger';
-            }
+            this._name = newValue ? newValue : "Stranger"; 
           }
         }
       }
       GreetingElement.observedAttributes = ['name'];
-      // customElements.define('hey-there', GreetingElement);
       customElements.define('hey-there', GreetingElement, { extends: 'button' });
+
+      // ---------- Fancy Button -------------
 
       let template2 = document.getElementById('template-2');
 
-      // ---------- Fancy Button -----
       class FancyButton extends HTMLElement {
         constructor() {
           super(); // this is mandatory
@@ -118,7 +116,7 @@
           this.iconEl = shadowRoot.querySelector('img');
           this.setIcon(this.getAttribute('icon'));
           
-          this.addEventListener('click', e => alert(`Fuck Donald Trump`));
+          this.addEventListener("click", e => alert("Hello from fancy button"));
         }
         
         attributeChangedCallback(attr, oldVal, newVal) {
@@ -129,11 +127,12 @@
         
         setIcon(url) {
           if (!this.iconEl) return;
-          if (url === null) {
-            this.iconEl.style.display = 'none';
-          } else {
+
+          if (url) {
             this.iconEl.src = url;
             this.iconEl.style.display = 'block';
+          } else {
+            this.iconEl.style.display = 'none';
           }
         }
       }
