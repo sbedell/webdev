@@ -5,23 +5,17 @@
     <title>setInterval/clearInterval example</title>
 </head>
  
-<body onload="changeColor();">
-    <div id="my_box">
-        <p>Hello World</p>
-    </div>
+<body onload="startTextColor();">
+    <p id="text-box">Hello World!</p>
     <button onclick="startTextColor();">Start</button>
     <button onclick="stopTextColor();">Stop</button>
 
     <script>
         let intervalId;
          
-        function changeColor() {
-            intervalId = setInterval(flashText, 500);
-        }
-         
         function flashText() {
-            let oElem = document.getElementById("my_box");
-            oElem.style.color = oElem.style.color == "red" ? "blue" : "red";
+            let textElem = document.getElementById("text-box");
+            textElem.style.color = (textElem.style.color === "red") ? "blue" : "red";
         }
          
         function stopTextColor() {
@@ -29,7 +23,7 @@
         }
         
         function startTextColor() {
-            intervalId = setInterval(flashText, 250);
+            intervalId = setInterval(flashText, 500);
         }
     </script>
 </body>

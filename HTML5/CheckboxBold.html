@@ -4,6 +4,12 @@
   <head>
     <meta charset="utf-8">
     <title>Checkbox Test</title>
+
+    <style>
+      label {
+        user-select: none;
+      }
+    </style>
   </head>
 
   <body>
@@ -11,29 +17,20 @@
     <!-- This outputPanel calls the function, passing in the
              checkbox itself, and the DOM ID of the target component. -->
     <div>
-      <label>Click this box to change text font:
+      <label>Click this box to make the text bold:
         <input id="checkbox" type="checkbox" onclick="changeFont(this, 'thePanel')" />
       </label>
     </div>
     
-    <!-- This outputPanel is the target, and contains 
-         text that will be changed. -->
-    <div id="thePanel">
-      Change my font weight!
-    </div>
+    <!-- This outputPanel is the target, and contains text that will be changed. -->
+    <p id="thePanel">Change my boldness!</p>
     
     <script>
         function changeFont(input, textid) {
           // console.log("Checked? " + input.checked);
-          
-          if (input.checked) {
-            document.getElementById(textid).style.fontWeight = "bold";
-          } else {
-            document.getElementById(textid).style.fontWeight = "normal";
-          }
+
+          document.getElementById(textid).style.fontWeight = input.checked ? "bold" : "normal";
         }
     </script>
   </body>
 </html>
-
-
