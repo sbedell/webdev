@@ -14,4 +14,5 @@ function getHostName(url) {
 // "testing" - should print "labs.detectify.com"
 function testGetHostName() {
   console.log(getHostName("https://labs.detectify.com/2017/02/28/hacking-slack-using-postmessage-and-websocket-reconnect-to-steal-your-precious-token/"));
+  console.assert(getHostName("https://labs.detectify.com/2017/02/28/hacking-slack") === "labs.detectify.com", "Incorrect Match");
 }
