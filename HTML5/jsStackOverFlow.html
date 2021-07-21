@@ -22,11 +22,11 @@
         try {
           throw new TypeError("you done goofed");
         } catch(e) {
-          console.log(e);
-          console.log("Error Name: " + e.name);
-          console.log("Error message: " + e.message);
+          console.error(e);
+          console.error("Error Name: " + e.name);
+          console.error("Error message: " + e.message);
           
-          window.open("http://stackoverflow.com/search?q=[js]+" + e.message);
+          window.open(encodeURI("https://stackoverflow.com/search?q=[js]+" + e.message));
         }
       }
 
