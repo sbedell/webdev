@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html>
+  <head lang="en">
+    <title>Window Resize Event Demo</title>
+    
+    <meta charset="utf-8">
+    <!-- <meta name="author" content="Author Name">
+	  <meta name="description" content="Description goes here">
+	  <meta name="keywords" content="Comma, separated, keywords"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script>
+      window.addEventListener("resize", onWindowResize);
+
+      function onWindowResize() {
+        //console.log("calling onWindowResize");
+
+        document.getElementById("height").textContent = window.innerHeight;
+        document.getElementById("width").textContent = window.innerWidth;
+      }
+    </script>
+  </head>
+
+  <body>
+    <p>Resize the browser window to fire the <code>resize</code> event.</p>
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event" target="_blank">Window: Resize Event | MDN</a></p>
+    <p>Window height: <span id="height"></span></p>
+    <p>Window width: <span id="width"></span></p>
+
+    <p>Note: Doesn't seem to matter if the resize code is in head, top of body, or bottom of body. Seems to work no matter what, and on Firefox and Chrome.</p>
+  </body>
+</html>
