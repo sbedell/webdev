@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html>
+  <head lang="en">
+    <title>Window Resize Event Demo</title>
+    
+    <meta charset="utf-8">
+    <!-- <meta name="author" content="Author Name">
+	  <meta name="description" content="Description goes here">
+	  <meta name="keywords" content="Comma, separated, keywords"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+    </style>
+  </head>
+
+  <body>
+    <p>Resize the browser window to fire the <code>resize</code> event.</p>
+    <p><a hrpef="https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event" target="_blank">Window: Resize Event | MDN</a></p>
+    <p>Window height: <span id="height"></span></p>
+    <p>Window width: <span id="width"></span></p>
+  </body>
+
+  <iframe id="my-dumb-iframe" src="http://localhost:8080/window-resize-demo.html" name="Example Org Iframe"
+    title="iframe Example 1" width="350" height="350">
+  </iframe>
+
+  <script>
+    window.addEventListener("resize", printWindowSizes);
+    window.addEventListener("load", printWindowSizes);
+
+    let myIframe = document.querySelector('iframe');
+    myIframe.addEventListener("resize", resizeIframe);
+    myIframe.addEventListener("load", iframeLoad);
+    myIframe.contentDocument.body.addEventListener("resize", resizeIframe);
+    console.log("iFrame:", myIframe);
+
+    // Print window sizes
+    function printWindowSizes() {
+      // console.log("calling printWindowSizes");
+
+      document.getElementById("height").textContent = window.innerHeight;
+      document.getElementById("width").textContent = window.innerWidth;
+    }
+
+    function resizeIframe() {
+      console.log("hitting resize from the iframe, calling printWindowSizes.");
+      console.log("window.parent:", window.parent);
+      printWindowSizes();
+    }
+
+    function iframeLoad() {
+      console.log("Hitting iFrame load, calling printWindowSizes.");
+      console.log("window.parent:", window.parent);
+      printWindowSizes();
+    }
+  </script>
+</html>
