@@ -7,12 +7,12 @@
 function basicFetch(url) {
   fetch(url).then(res => {
     if (res.ok) {
-      // rest.text() is useful here too depending on what the response is.
+      // res.text() is useful here too depending on what the response is.
       return res.json();
     } else {
       return Promise.reject({
-        status: response.status,
-        statusText: response.statusText
+        status: res.status,
+        statusText: res.statusText
       });
     }
   }).then(response => {
@@ -24,7 +24,6 @@ function basicFetch(url) {
   });
 }
 
-// Demo Headers for Troy Hunt's Pwned Passwords demo
 function fetchWithHeaders(url = "") {
   const options = {
     method: "GET",
