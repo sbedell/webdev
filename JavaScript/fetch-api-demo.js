@@ -30,7 +30,8 @@ function fetchWithHeaders(url = "") {
     headers: {
       'User-Agent': "Javascript Fetch API"
     }
-  }
+  };
+  
   fetch(url, options)
     .then(response => {
       console.log("response: ", response);

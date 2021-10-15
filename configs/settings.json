@@ -15,12 +15,8 @@
       "**/node_modules": true // this excludes all folders 
                                // named "node_modules" from 
                                // the explore tree
-      // alternative version
-      //"node_modules": true    // this excludes the folder 
-                              // only from the root of
-                              // your workspace 
   },
-  "telemetry.enableTelemetry": false,
+  "telemetry.telemetryLevel": "error",
   "terminal.integrated.rightClickBehavior": "default",
   "window.restoreWindows": "all",
   "workbench.settings.editor": "ui",
@@ -32,5 +28,4 @@
   "terminal.integrated.defaultProfile.windows": "Git Bash",
   "search.searchOnType": false,
   "explorer.autoReveal": false
-  // "editor.cursorSurroundingLines": 5
 }
