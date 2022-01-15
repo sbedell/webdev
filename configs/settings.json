@@ -1,31 +1,33 @@
 // Settings for VS Code. 
 
 {
+  "breadcrumbs.enabled": false,
+  "diffEditor.ignoreTrimWhitespace": false,
+
+  "editor.find.cursorMoveOnType": false,
   "editor.minimap.enabled": false,
   "editor.tabSize": 2,
-  "editor.rulers": [80],
-
+  "editor.rulers": [120],
   // "editor.quickSuggestions": false,
   "editor.quickSuggestionsDelay": 50,
-
   "explorer.openEditors.visible": 0,
+  "explorer.autoReveal": false,
+
+  // This excludes files from the explore tree.
+  "files.exclude": {
+      "**/node_modules": true
+  },
 
   "git.autofetch": false,
-  "files.exclude": {
-      "**/node_modules": true // this excludes all folders 
-                               // named "node_modules" from 
-                               // the explore tree
-  },
+  
+  "search.searchOnType": false,
+  "search.maxResults": 600,
+
   "telemetry.telemetryLevel": "error",
   "terminal.integrated.rightClickBehavior": "default",
+
   "window.restoreWindows": "all",
   "workbench.settings.editor": "ui",
   "workbench.editor.tabCloseButton": "off",
-  "breadcrumbs.enabled": false,
-  "window.zoomLevel": 0,
-  "debug.toolBarLocation": "docked",
-  "diffEditor.ignoreTrimWhitespace": false,
-  "terminal.integrated.defaultProfile.windows": "Git Bash",
-  "search.searchOnType": false,
-  "explorer.autoReveal": false
+  "window.zoomLevel": 0
 }
