@@ -21,17 +21,19 @@ function checkBookmarkForIssues(bookmark, folderName) {
 }
 
 function checkBookmarkHttpsRequest(httpsURL, urlTitle="", folderName="") {
-  // const options = {
-  //   url: httpsURL,
-  //   timeout: 1000 // i believe this is in ms
-  // };
+  const options = {
+    timeout: 2000 // This is in milliseconds. 2 second timeout. 
+  };
 
-  https.get(httpsURL, response => {
-    if (response.statusCode !== 200) {
-      console.log(`${httpsURL.substr(0, 100)},${urlTitle.replace(/,/g, " ").substring(0, 80)},${folderName},${response.statusCode}`);
+  const statusCodesToCheck = [400, 401, 404]
+
+  https.get(httpsURL, options, response => {
+    // Old Check: if (response.statusCode !== 200) {
+    if (statusCodesToCheck.includes(response.statusCode)) {
+      console.log(`${httpsURL.substring(0, 100)},${urlTitle.replace(/,/g, " ").substring(0, 80)},${folderName},${response.statusCode}`);
     }
   }).on('error', e => {
-    console.log(`Error checking ${httpsURL.substr(0, 100)},${urlTitle.replace(/,/g, " ").substring(0, 80)},${folderName},${e}`);
+    console.log(`Error checking ${httpsURL.substring(0, 100)},${urlTitle.replace(/,/g, " ").substring(0, 80)},${folderName},${e}`);
   });
 }
 
