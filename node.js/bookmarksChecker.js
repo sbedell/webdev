@@ -8,7 +8,7 @@
 const fs = require('fs');
 const https = require("https");
 
-// -------------------------"Main Program:"---------------------------------
+// --------------------- Functions --------------
 
 function checkBookmarkForIssues(bookmark, folderName) {
   if (bookmark.uri && bookmark.uri.match(/fbclid|gclid|utm_/)) {
@@ -26,28 +26,28 @@ function checkBookmarkHttpsRequest(httpsURL, urlTitle="", folderName="") {
   //   timeout: 1000 // i believe this is in ms
   // };
 
-  https.get(httpsURL, response => { 
+  https.get(httpsURL, response => {
     if (response.statusCode !== 200) {
-      console.log(`${httpsURL.substr(0,100)},${urlTitle.replace(/,/g, " ").substr(0,80)},${folderName},${response.statusCode}`);
+      console.log(`${httpsURL.substr(0, 100)},${urlTitle.replace(/,/g, " ").substring(0, 80)},${folderName},${response.statusCode}`);
     }
   }).on('error', e => {
-    // console.log(e);
-    console.log(`Error checking ${httpsURL.substr(0,100)},${urlTitle.replace(/,/g, " ").substr(0,80)},${folderName},${e}`);
+    console.log(`Error checking ${httpsURL.substr(0, 100)},${urlTitle.replace(/,/g, " ").substring(0, 80)},${folderName},${e}`);
   });
 }
+
+// -------------------------"Main Program:"---------------------------------
 
 if (process.argv[2]) {
   fs.readFile(process.argv[2], (err, data) => {
     if (!err) {
       let bookmarksBackup = JSON.parse(data);
-      // console.log(bookmarksBackup);
-  
+
       // children[0] is the Bookmarks Menu folder, the children of that is each folder.
       let bookmarksFolders = bookmarksBackup.children[0].children;
-  
+
       // Printing in CSV file output, > pipe it to a csv file in the command line
       console.log("URL,Title,Folder,HTTP-Status-Code");
-  
+
       bookmarksFolders.forEach(bookmarksFolder => {
         // Here it is...the actual bookmarks, except when there are subfolders.
         let bookmarks = bookmarksFolder.children;
@@ -55,10 +55,12 @@ if (process.argv[2]) {
           bookmarks.forEach(bookmark => {
             // Check for Subfolders:
             if (bookmark.children) {
-              bookmark.children.forEach(childBookmark => {
+              for (let childBookmark of bookmark.children) {
+              //bookmark.children.forEach(childBookmark => {
                 // console.log("Child bookmark: ", childBookmark.title);
                 checkBookmarkForIssues(childBookmark, bookmark.title);
-              });
+              //});
+              }
             } else {
               // console.log("Bookmark: ", bookmark.title);
               checkBookmarkForIssues(bookmark, bookmarksFolder.title);
