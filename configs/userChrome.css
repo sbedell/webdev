@@ -15,9 +15,8 @@
 #context-sendpage,
 #context-setDesktopBackground,
 #context-forward[disabled="true"],
-#context-back[disabled="true"],
-#context-viewbgimage[disabled="true"] 
-{ 
+#context-back[disabled="true"]
+{
     display: none; 
 }
 
@@ -47,4 +46,9 @@
 
 .tabbrowser-tab .tab-close-button {
   display: none !important;
+}
+
+/* Change color of the HTTPS lock icon: */
+#identity-icon {
+    color: forestgreen;
 }
