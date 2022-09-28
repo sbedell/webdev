@@ -1,37 +1,39 @@
-// Settings for VS Code. 
+// Settings for VS Code.
 
 {
-  "breadcrumbs.enabled": false,
-
   "diffEditor.ignoreTrimWhitespace": false,
 
   "editor.find.cursorMoveOnType": false,
   "editor.minimap.enabled": false,
   "editor.tabSize": 2,
   "editor.renderWhitespace": "trailing",
+  "editor.bracketPairColorization.enabled": false,
   "editor.rulers": [120],
-  // "editor.quickSuggestions": false,
   "editor.quickSuggestionsDelay": 250,
+  "editor.experimental.stickyScroll.enabled": true,
 
   "explorer.autoReveal": false,
   "explorer.openEditors.visible": 0,
 
-  // This excludes files from the explore tree.
+
+  // This excludes files from the explore tree:
   "files.exclude": {
       "**/node_modules": true
   },
 
   "git.autofetch": false,
+  // Close git diff panes after changes are stashed, committed, discarded, staged, or unstaged
   "git.closeDiffOnOperation": true,
-  // "git.commandsToLog": [],
 
   "search.searchOnType": false,
   "search.maxResults": 600,
 
   "telemetry.telemetryLevel": "error",
+  "terminal.integrated.defaultProfile.windows": "Git Bash",
   "terminal.integrated.rightClickBehavior": "default",
 
   "window.restoreWindows": "all",
   "workbench.editor.tabCloseButton": "off",
-  "window.zoomLevel": 0
+  "window.zoomLevel": 0,
+  "window.confirmBeforeClose": "keyboardOnly"
 }
