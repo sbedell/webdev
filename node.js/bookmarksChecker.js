@@ -1,7 +1,7 @@
 /**
  * Read Firefox bookmarks json backup file and find all bookmarks 
  * that are http:// only and not https://
- * 
+ *
  * Now adding functionality to check if any bookmarks are not returning HTTP 200.
  */
 
@@ -28,7 +28,6 @@ function checkBookmarkHttpsRequest(httpsURL, urlTitle="", folderName="") {
   const statusCodesToCheck = [400, 401, 404]
 
   https.get(httpsURL, options, response => {
-    // Old Check: if (response.statusCode !== 200) {
     if (statusCodesToCheck.includes(response.statusCode)) {
       console.log(`${httpsURL.substring(0, 100)},${urlTitle.replace(/,/g, " ").substring(0, 80)},${folderName},${response.statusCode}`);
     }
@@ -50,11 +49,11 @@ if (process.argv[2]) {
       // Printing in CSV file output, > pipe it to a csv file in the command line
       console.log("URL,Title,Folder,HTTP-Status-Code");
 
-      bookmarksFolders.forEach(bookmarksFolder => {
+      for (let bookmarksFolder of bookmarksFolders) {
         // Here it is...the actual bookmarks, except when there are subfolders.
         let bookmarks = bookmarksFolder.children;
         if (bookmarks) {
-          bookmarks.forEach(bookmark => {
+          for (let bookmark of bookmarks) {
             // Check for Subfolders:
             if (bookmark.children) {
               for (let childBookmark of bookmark.children) {
@@ -67,9 +66,9 @@ if (process.argv[2]) {
               // console.log("Bookmark: ", bookmark.title);
               checkBookmarkForIssues(bookmark, bookmarksFolder.title);
             }
-          });
+          }
         }
-      });
+      }
     } else if (err && err.code === "ENOENT") {
       console.error(`[!] Error: file not found.`);
     } else {
