@@ -8,6 +8,7 @@
   "editor.tabSize": 2,
   "editor.renderWhitespace": "trailing",
   "editor.bracketPairColorization.enabled": false,
+  "editor.inlineSuggest.minShowDelay": 500,
   "editor.rulers": [120],
   "editor.quickSuggestionsDelay": 250,
   "editor.experimental.stickyScroll.enabled": true,
@@ -15,11 +16,13 @@
   "explorer.autoReveal": false,
   "explorer.openEditors.visible": 0,
 
-
   // This excludes files from the explore tree:
   "files.exclude": {
       "**/node_modules": true
   },
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
 
   "git.autofetch": false,
   // Close git diff panes after changes are stashed, committed, discarded, staged, or unstaged

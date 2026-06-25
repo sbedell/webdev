@@ -1,9 +1,9 @@
 /*
-* My userChrome.css file for Firefox - Steve. 
+* My userChrome.css file for Firefox - Steve.
 */
 
 /* Remove Back and forward buttons when there's nothing to go Back to  */
-#back-button[disabled="true"], 
+#back-button[disabled="true"],
 #forward-button[disabled="true"]
 {
     display: none;
@@ -17,16 +17,16 @@
 #context-forward[disabled="true"],
 #context-back[disabled="true"]
 {
-    display: none; 
+    display: none;
 }
 
 /* Remove the send page to device menu */
 #context-sendpagetodevice,
 #context-sep-sendpagetodevice,
-#context-sendlinktodevice, 
+#context-sendlinktodevice,
 #context-sep-sendlinktodevice,
 #context_sendTabToDevice,
-#context_sendTabToDevice_separator 
+#context_sendTabToDevice_separator
 {
     display: none !important;
 }
@@ -40,7 +40,7 @@
 }
 
 /* Apply styles to the selected tab */
-.tabbrowser-tab[selected="true"] .tab-text { 
+.tabbrowser-tab[selected="true"] .tab-text {
 	font-weight: bold;
 }
 
@@ -49,6 +49,7 @@
 }
 
 /* Change color of the HTTPS lock icon: */
+/* I think the new setting is #trust-icon */
 #identity-icon {
     color: forestgreen;
 }
