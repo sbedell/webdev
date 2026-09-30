@@ -33,15 +33,15 @@
 
 /* Change Tab styles */
 .tabbrowser-tab {
-   /* font-family: sans-serif; */
    border-right: 1px dotted black !important;
-   padding-inline: 1px !important;
-   min-height: 20px;
+   /* padding-inline: 1px !important; */
+   /* min-height: 20px; */
 }
 
-/* Apply styles to the selected tab */
-.tabbrowser-tab[selected="true"] .tab-text {
-	font-weight: bold;
+/* Bold the selected tab */
+.tabbrowser-tab[selected] .tab-label,
+.tabbrowser-tab[selected] .tab-text {
+  font-weight: bold !important;
 }
 
 .tabbrowser-tab .tab-close-button {
@@ -49,7 +49,19 @@
 }
 
 /* Change color of the HTTPS lock icon: */
-/* I think the new setting is #trust-icon */
-#identity-icon {
+#trust-icon {
     color: forestgreen;
 }
+
+/* Change the color of the star button (for bookmarks) back
+* to blue. Firefox 157 changed it to gray for some reason.
+*/
+#star-button[starred] {
+    fill: blue !important;
+}
+
+/* Incrase font size in the bookmarks (?) and history sidebar:
+#fxview-tab-list {
+	font-size: 15px;
+}
+*/
